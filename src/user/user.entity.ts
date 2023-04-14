@@ -4,7 +4,7 @@ import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, U
 
 
 @Entity()
-export class UserEntity extends MyBaseEntity {
+export class User extends MyBaseEntity {
 //   @PrimaryGeneratedColumn()
 //   id: number;
 
@@ -20,8 +20,8 @@ export class UserEntity extends MyBaseEntity {
   @Column()
   password: string;
 
-//   @Column({ nullable: true })
-//   bio: string;
+  @Column({ nullable: true })
+  bio: string;
 
 }
 
