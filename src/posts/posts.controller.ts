@@ -22,26 +22,25 @@ export class PostsController {
   }
 
   @Get('/id')
-  
   async viewPhoto(@Param('id') id: string,
   @getUserbyId() user: User,): Promise<any> {
     
-    const photo = await this.postService.getPostById(id);
+    const post = await this.postService.getPostById(id);
     let isAuthor = false;
-    if (photo.userId === user.id) {
+    if (post.userId === user.id) {
       isAuthor = true;
     }
 
     let isLiked = false;
     const like = await this.likeService.findLikeByUserAndPhotoId(
       user.id,
-      photo.id,
+      post.id,
     );
     if (like) {
       isLiked = true;
     }
 
-    return { photo, isAuthor, isLiked };
+    return { post, isAuthor, isLiked };
   }
 
   @Delete('/id')
