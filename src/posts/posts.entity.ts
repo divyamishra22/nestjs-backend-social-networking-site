@@ -3,7 +3,7 @@ import { User } from "src/user/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity()
-export class Photo extends MyBaseEntity {
+export class Post extends MyBaseEntity {
   
 
   @Column()
