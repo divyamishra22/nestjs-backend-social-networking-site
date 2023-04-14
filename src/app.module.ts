@@ -32,7 +32,7 @@ import { Likes } from './like/like.entity';
     UserModule,
     PostsModule,
     LikeModule],
-  controllers: [AppController, LikeController ],
-  providers: [AppService, LikeService, ],
+  controllers: [AppController,],
+  providers: [AppService, ],
 })
 export class AppModule {}

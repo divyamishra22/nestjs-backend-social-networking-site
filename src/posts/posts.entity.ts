@@ -1,6 +1,7 @@
 import { MyBaseEntity } from "src/commons/base.entity";
+import { Likes } from "src/like/like.entity";
 import { User } from "src/user/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 
 @Entity()
 export class Posts extends MyBaseEntity {
@@ -18,5 +19,12 @@ export class Posts extends MyBaseEntity {
   
   @Column()
   userId:string;
+
+  @OneToMany((type) => Likes, (like) => like.postId, 
+   {
+    lazy: true,
+    cascade: true,
+  })
+   likes: Likes[];
   
 }

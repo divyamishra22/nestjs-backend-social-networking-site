@@ -5,6 +5,7 @@ import { LikeController } from './like.controller';
 import { User } from 'src/user/user.entity';
 import { Posts } from 'src/posts/posts.entity';
 import { Likes } from './like.entity';
+import { PostsService } from 'src/posts/posts.service';
 
 @Module({
     imports: [
@@ -12,6 +13,6 @@ import { Likes } from './like.entity';
         // forwardRef(() => User)
       ],
       controllers: [LikeController],
-      providers: [LikeService, ],
+      providers: [LikeService,PostsService ],
 })
 export class LikeModule {}

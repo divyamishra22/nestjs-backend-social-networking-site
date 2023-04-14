@@ -1,4 +1,28 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Param, Post } from '@nestjs/common';
+import { LikeService } from './like.service';
+import { PostsService } from 'src/posts/posts.service';
+import { User } from 'src/user/user.entity';
 
 @Controller('like')
-export class LikeController {}
+export class LikeController {
+  constructor(private likeService: LikeService,
+    private postService: PostsService,) {}
+
+  @Post('/:id')
+ 
+  async handleLike(@Param('id') id: string, user: User ) {
+    const photo = await this.postService.getPostById(id);
+
+    const like = await this.likeService.findLikeByUserAndPhotoId(
+      user.id,
+      photo.id,
+    );
+
+    if (!like) {
+      return this.likeService.addLike(user.id, photo.id);
+    } else {
+      return this.likeService.removeLike(like);
+    }
+  }
+}
+
