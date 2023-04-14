@@ -13,6 +13,9 @@ import { LikeService } from './like/like.service';
 import { LikeModule } from './like/like.module';
 import { Likes } from './like/like.entity';
 // import { Like } from 'typeorm';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -31,8 +34,9 @@ import { Likes } from './like/like.entity';
     }),
     UserModule,
     PostsModule,
-    LikeModule],
-  controllers: [AppController,],
-  providers: [AppService, ],
+    LikeModule,
+    AuthModule],
+  controllers: [AppController, AuthController,],
+  providers: [AppService, AuthService, ],
 })
 export class AppModule {}

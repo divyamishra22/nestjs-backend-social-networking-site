@@ -20,6 +20,9 @@ export class UserService {
         return await this.userRepo.findOne({ where: { id: userId } });
       }
     
+      public async findbyemail(email: string): Promise<User> {
+        return await this.userRepo.findOne({ where: { email: email } });
+      }
       
       public async createUser(
         createuser: Partial<User>,
