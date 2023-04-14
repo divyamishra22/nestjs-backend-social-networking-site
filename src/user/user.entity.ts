@@ -1,5 +1,6 @@
 import { MyBaseEntity } from "src/commons/base.entity";
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Posts } from "src/posts/posts.entity";
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
 
@@ -22,6 +23,13 @@ export class User extends MyBaseEntity {
 
   @Column({ nullable: true })
   bio: string;
+
+   @OneToMany((type) => Posts, (post) => post.user, 
+   {
+    lazy: true,
+    cascade: true,
+  })
+   posts: Posts[];
 
 }
 

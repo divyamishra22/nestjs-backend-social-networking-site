@@ -7,6 +7,7 @@ import { User } from './user/user.entity';
 import { PostsController } from './posts/posts.controller';
 import { PostsService } from './posts/posts.service';
 import { PostsModule } from './posts/posts.module';
+import { Posts } from './posts/posts.entity';
 
 @Module({
   imports: [
@@ -18,14 +19,14 @@ import { PostsModule } from './posts/posts.module';
       username: 'postgres',
       password: 'divya123',
       database: 'mydb1',
-      entities: [User],
+      entities: [User, Posts],
       synchronize: true,
       logger:'advanced-console',
       logging: 'all',  
     }),
     UserModule,
     PostsModule],
-  controllers: [AppController, PostsController, ],
-  providers: [AppService, PostsService, ],
+  controllers: [AppController ],
+  providers: [AppService, ],
 })
 export class AppModule {}

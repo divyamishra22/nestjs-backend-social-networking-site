@@ -3,14 +3,14 @@ import { User } from "src/user/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity()
-export class Post extends MyBaseEntity {
+export class Posts extends MyBaseEntity {
   
 
   @Column()
   body: string;
 
-  @Column()
-  key: string;
+//   @Column()
+//   key: string;
 
   @ManyToOne(() => User,  { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
