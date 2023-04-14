@@ -6,6 +6,7 @@ import { User } from './user.entity';
 import { Posts } from 'src/posts/posts.entity';
 import { Likes } from 'src/like/like.entity';
 
+
 @Module({
     imports: [
         TypeOrmModule.forFeature([User, Posts, Likes]), 
@@ -13,5 +14,6 @@ import { Likes } from 'src/like/like.entity';
       ],
       controllers: [UserController],
       providers: [UserService, ],
+      exports: [UserService, ]
 })
 export class UserModule {}
