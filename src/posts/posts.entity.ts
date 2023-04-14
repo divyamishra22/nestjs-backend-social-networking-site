@@ -13,9 +13,10 @@ export class Posts extends MyBaseEntity {
 //   key: string;
 
   @ManyToOne(() => User,  { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'userId' })
+  @JoinColumn({ name: 'userId' , })
   user: User;
-
-
+  
+  @Column()
+  userId:string;
   
 }
