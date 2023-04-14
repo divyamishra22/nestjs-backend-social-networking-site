@@ -35,7 +35,7 @@ export class PostsService {
   }
 
 
-  async deletePostById(id: string, ): Promise<any> {
+  async deletePostById(id: string, user:User): Promise<any> {
     const post = await this.getPostById(id);
     if (post.userId !== id) {
       throw new UnauthorizedException('Unauthorized');
