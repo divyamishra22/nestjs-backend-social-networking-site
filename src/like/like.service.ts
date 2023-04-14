@@ -30,10 +30,10 @@ export class LikeService {
     return this.removeLike(like);
   }
 
-  async addLike(userId: string, photoId: string): Promise<Likes> {
+  async addLike(userId: string, postId: string): Promise<Likes> {
     const like = new Likes();
     like.userId = userId;
-    like.postId = photoId;
+    like.postId = postId;
 
     await this.likeRepository.save(like);
     return like;
