@@ -4,7 +4,7 @@ import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, U
 
 
 @Entity()
-export class User extends MyBaseEntity {
+export class UserEntity extends MyBaseEntity {
 //   @PrimaryGeneratedColumn()
 //   id: number;
 
