@@ -8,8 +8,8 @@ export class User extends MyBaseEntity {
 //   @PrimaryGeneratedColumn()
 //   id: number;
 
-  @Column()
-  name: string;
+//   @Column()
+//   name: string;
 
   @Column()
   email: string;
@@ -20,8 +20,8 @@ export class User extends MyBaseEntity {
   @Column()
   password: string;
 
-  @Column({ nullable: true })
-  bio: string;
+//   @Column({ nullable: true })
+//   bio: string;
 
 }
 
