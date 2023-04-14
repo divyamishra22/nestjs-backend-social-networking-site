@@ -15,6 +15,10 @@ export class UserService {
         return await this.userRepo.findOne({ where: { username } });
       }
     
+      async findOne(id:string): Promise<User>{
+        return await  this.userRepo.findOne({where: {id:id} });
+       }
+      
       
       public async getUserByUserId(userId: string): Promise<User> {
         return await this.userRepo.findOne({ where: { id: userId } });
