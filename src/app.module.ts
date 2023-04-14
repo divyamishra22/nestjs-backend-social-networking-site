@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
+import { PostsController } from './posts/posts.controller';
+import { PostsService } from './posts/posts.service';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -20,8 +23,9 @@ import { User } from './user/user.entity';
       logger:'advanced-console',
       logging: 'all',  
     }),
-    UserModule],
-  controllers: [AppController, ],
-  providers: [AppService, ],
+    UserModule,
+    PostsModule],
+  controllers: [AppController, PostsController, ],
+  providers: [AppService, PostsService, ],
 })
 export class AppModule {}
