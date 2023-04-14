@@ -8,6 +8,11 @@ import { PostsController } from './posts/posts.controller';
 import { PostsService } from './posts/posts.service';
 import { PostsModule } from './posts/posts.module';
 import { Posts } from './posts/posts.entity';
+import { LikeController } from './like/like.controller';
+import { LikeService } from './like/like.service';
+import { LikeModule } from './like/like.module';
+import { Likes } from './like/like.entity';
+// import { Like } from 'typeorm';
 
 @Module({
   imports: [
@@ -19,14 +24,15 @@ import { Posts } from './posts/posts.entity';
       username: 'postgres',
       password: 'divya123',
       database: 'mydb1',
-      entities: [User, Posts],
+      entities: [User, Posts, Likes],
       synchronize: true,
       logger:'advanced-console',
       logging: 'all',  
     }),
     UserModule,
-    PostsModule],
-  controllers: [AppController ],
-  providers: [AppService, ],
+    PostsModule,
+    LikeModule],
+  controllers: [AppController, LikeController ],
+  providers: [AppService, LikeService, ],
 })
 export class AppModule {}
