@@ -1,4 +1,5 @@
 import { MyBaseEntity } from "src/commons/base.entity";
+import { Follow } from "src/follow/follow.entity";
 import { Likes } from "src/like/like.entity";
 import { Posts } from "src/posts/posts.entity";
 import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
@@ -38,6 +39,20 @@ export class User extends MyBaseEntity {
     cascade: true,
   })
    likes: Likes[];
+
+   @OneToMany((type) => Follow, (follow) => follow.userfollowerId, 
+   {
+    lazy: true,
+    cascade: true,
+  })
+   followers  : Follow[];
+
+   @OneToMany((type) => Follow, (follow) => follow.userfollowingId, 
+   {
+    lazy: true,
+    cascade: true,
+  })
+   following  : Follow[];
 
 
 }

@@ -16,6 +16,9 @@ import { Likes } from './like/like.entity';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
+import { FollowController } from './follow/follow.controller';
+import { FollowService } from './follow/follow.service';
+import { FollowModule } from './follow/follow.module';
 
 @Module({
   imports: [
@@ -35,8 +38,9 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     PostsModule,
     LikeModule,
-    AuthModule],
-  controllers: [AppController, ],
-  providers: [AppService, ],
+    AuthModule,
+    FollowModule],
+  controllers: [AppController, FollowController, ],
+  providers: [AppService, FollowService, ],
 })
 export class AppModule {}
