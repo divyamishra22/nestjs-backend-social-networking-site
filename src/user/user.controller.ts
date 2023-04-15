@@ -2,6 +2,8 @@ import { Controller,Get, Post, Patch, Param, Body, ForbiddenException, NotFoundE
 import { UserService } from './user.service';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { User } from './user.entity';
+import { getUserbyId } from 'src/auth/auth.decorator';
+import { PostsService } from 'src/posts/posts.service';
 
 class UserCreateRequestBody {
     @ApiProperty() username: string;
@@ -18,7 +20,8 @@ class UserCreateRequestBody {
 
 @Controller('user')
 export class UserController {
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService,
+      private postService: PostsService) {}
 
     @Get('/username')
     async getUserByUsername(@Param('username') username: string): Promise<User> {
@@ -62,7 +65,11 @@ export class UserController {
           return user;
     }
   
-  
+  @Get('/allposts')
+  async getallpostofuser(@getUserbyId() userid:string)
+  {
+      return this.postService.getallpostsofuser(userid);
+  }
     
 
     

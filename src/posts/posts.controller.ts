@@ -22,18 +22,18 @@ export class PostsController {
   }
 
   @Get('/id')
-  async viewPhoto(@Param('id') id: string,
-  @getUserbyId() user: User,): Promise<any> {
+  async viewPost(@Param('id') id: string,
+  @getUserbyId() userid: string,): Promise<any> {
     
     const post = await this.postService.getPostById(id);
     let isAuthor = false;
-    if (post.userId === user.id) {
+    if (post.userId === userid) {
       isAuthor = true;
     }
 
     let isLiked = false;
-    const like = await this.likeService.findLikeByUserAndPhotoId(
-      user.id,
+    const like = await this.likeService.findLikeByUserAndPostId(
+      userid,
       post.id,
     );
     if (like) {
@@ -46,10 +46,10 @@ export class PostsController {
   @Delete('/id')
   
   async DeletePhoto( @Param('id') id: string,
-  @getUserbyId() user: User,): Promise<any> {
+  @getUserbyId() userid: string,): Promise<any> {
     
     
-    return this.postService.deletePostById(id, user);
+    return this.postService.deletePostById(id, userid);
   }
 }
 

@@ -9,7 +9,7 @@ export class LikeService {
     @InjectRepository(Likes) private likeRepository: LikeRepository,
     
   ) {}
-  async findLikeByUserAndPhotoId(
+  async findLikeByUserAndPostId(
     userId: string,
     postId: string,
   ): Promise<Likes> {

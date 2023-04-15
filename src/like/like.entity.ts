@@ -15,7 +15,7 @@ export class Likes extends MyBaseEntity {
 
   @ManyToOne(() => Posts,  { onDelete: 'CASCADE' })
   @JoinColumn({name: "postId"})
-  photo: Posts;
+  posts: Posts;
 
   @ManyToOne(() => User,  { onDelete: 'CASCADE' })
   @JoinColumn({name: "userId"})

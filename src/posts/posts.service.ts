@@ -27,6 +27,13 @@ export class PostsService {
     return post;
   }
 
+  async getallpostsofuser(userid:string): Promise<Posts[]> {
+    return await this.postRepository
+    .createQueryBuilder('posts')
+    .where('posts.userId: userid',{userid})
+    .getMany();
+  }
+
   async getAllUserPostsCount(userId: string) {
     return this.postRepository
     .createQueryBuilder('post')
@@ -35,9 +42,9 @@ export class PostsService {
   }
 
 
-  async deletePostById(id: string, user:User): Promise<any> {
+  async deletePostById(id: string, userid:string): Promise<any> {
     const post = await this.getPostById(id);
-    if (post.userId !== id) {
+    if (post.userId !== userid) {
       throw new UnauthorizedException('Unauthorized');
     }
    
