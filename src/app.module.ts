@@ -19,6 +19,7 @@ import { AuthModule } from './auth/auth.module';
 import { FollowController } from './follow/follow.controller';
 import { FollowService } from './follow/follow.service';
 import { FollowModule } from './follow/follow.module';
+import { Follow } from './follow/follow.entity';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { FollowModule } from './follow/follow.module';
       username: 'postgres',
       password: 'divya123',
       database: 'mydb1',
-      entities: [User, Posts, Likes],
+      entities: [User, Posts, Likes, Follow],
       synchronize: true,
       logger:'advanced-console',
       logging: 'all',  

@@ -6,11 +6,12 @@ import { User } from './user.entity';
 import { Posts } from 'src/posts/posts.entity';
 import { Likes } from 'src/like/like.entity';
 import { PostsModule } from 'src/posts/posts.module';
+import { Follow } from 'src/follow/follow.entity';
 
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([User, Posts, Likes]), 
+        TypeOrmModule.forFeature([User, Posts, Likes, Follow]), 
         // forwardRef(() => Posts)
         PostsModule
       ],
