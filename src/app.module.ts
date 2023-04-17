@@ -41,7 +41,7 @@ import { Follow } from './follow/follow.entity';
     LikeModule,
     AuthModule,
     FollowModule],
-  controllers: [AppController, FollowController, ],
-  providers: [AppService, FollowService, ],
+  controllers: [AppController, ],
+  providers: [AppService, ],
 })
 export class AppModule {}

@@ -13,11 +13,11 @@ export class Follow extends MyBaseEntity {
   // @Column()
   // userfollowId: string;
 
-  @ManyToOne(() => User, (user) => user.followers, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, (user) => user.following, { onDelete: 'CASCADE' })
   @JoinColumn({name: 'userId'})
   userId: string;
 
-  @ManyToOne(() => User, (user) => user.following, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, (user) => user.followers, { onDelete: 'CASCADE' })
   @JoinColumn({name: 'userFollowId'})
   userfollowId: string;
 }

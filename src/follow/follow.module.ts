@@ -6,15 +6,17 @@ import { Follow } from './follow.entity';
 import { Posts } from 'src/posts/posts.entity';
 import { User } from 'src/user/user.entity';
 import { Likes } from 'src/like/like.entity';
+import { UserModule } from 'src/user/user.module';
+import { FollowRepository } from './follow.repository';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([ Follow, User]), 
         // forwardRef(() => User)
-        
+        UserModule
       ],
       controllers: [FollowController],
-      providers: [FollowService,],
+      providers: [FollowService,FollowRepository],
       exports: [FollowService]
 })
 export class FollowModule {}

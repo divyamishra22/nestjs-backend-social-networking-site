@@ -40,14 +40,14 @@ export class User extends MyBaseEntity {
   })
    likes: Likes[];
 
-   @OneToMany((type) => Follow, (follow) => follow.userfollowerId, 
+   @OneToMany((type) => Follow, (follow) => follow.userfollowId, 
    {
     lazy: true,
     cascade: true,
   })
    followers  : Follow[];
 
-   @OneToMany((type) => Follow, (follow) => follow.userfollowingId, 
+   @OneToMany((type) => Follow, (follow) => follow.userId, 
    {
     lazy: true,
     cascade: true,
