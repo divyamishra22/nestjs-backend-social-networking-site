@@ -7,14 +7,20 @@ export class Follow extends MyBaseEntity {
 // @Column()
 //   userToId: string;
 
-//   @Column()
-//   userFromId: string;
+
+@ManyToOne(() => User,  { onDelete: 'CASCADE' })
+  @JoinColumn({name: "userId"})
+  user: User;
+
+
+  // @Column()
+  // user: string;
 
   @ManyToOne(() => User, (user) => user.followers, { onDelete: 'CASCADE' })
-  @JoinColumn({name: 'userToId'})
+  @JoinColumn({name: 'userFollowId'})
   userfollowerId: User[];
 
   @ManyToOne(() => User, (user) => user.following, { onDelete: 'CASCADE' })
-  @JoinColumn({name: 'userFromId'})
+  @JoinColumn({name: 'userFollwoingId'})
   userfollowingId: User[];
 }
