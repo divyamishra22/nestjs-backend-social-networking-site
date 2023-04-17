@@ -4,23 +4,20 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity()
 export class Follow extends MyBaseEntity {
-// @Column()
-//   userToId: string;
-
-
-@ManyToOne(() => User,  { onDelete: 'CASCADE' })
-  @JoinColumn({name: "userId"})
-  user: User;
 
 
   // @Column()
-  // user: string;
+  // userId: string;
+
+
+  // @Column()
+  // userfollowId: string;
 
   @ManyToOne(() => User, (user) => user.followers, { onDelete: 'CASCADE' })
-  @JoinColumn({name: 'userFollowId'})
-  userfollowerId: User[];
+  @JoinColumn({name: 'userId'})
+  userId: string;
 
   @ManyToOne(() => User, (user) => user.following, { onDelete: 'CASCADE' })
-  @JoinColumn({name: 'userFollwoingId'})
-  userfollowingId: User[];
+  @JoinColumn({name: 'userFollowId'})
+  userfollowId: string;
 }
