@@ -3,7 +3,11 @@ import { LikeService } from 'src/like/like.service';
 import { PostsService } from './posts.service';
 import { getUserbyId } from 'src/auth/auth.decorator';
 import { User } from 'src/user/user.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+
+
+@ApiTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(

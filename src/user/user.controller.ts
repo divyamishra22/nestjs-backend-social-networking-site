@@ -1,6 +1,6 @@
 import { Controller,Get, Post, Patch, Param, Body, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
 import { User } from './user.entity';
 import { getUserbyId } from 'src/auth/auth.decorator';
 import { PostsService } from 'src/posts/posts.service';
@@ -18,6 +18,9 @@ class UserCreateRequestBody {
      @ApiPropertyOptional() email?: string;
   }
 
+
+
+@ApiTags('user')
 @Controller('user')
 export class UserController {
     constructor(private userService: UserService,

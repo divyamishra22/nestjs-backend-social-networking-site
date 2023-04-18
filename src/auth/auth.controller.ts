@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 
 class UserVerifyRequestBody{
@@ -8,6 +8,7 @@ class UserVerifyRequestBody{
   }
    
 
+  @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
 constructor(private readonly authService: AuthService){}
