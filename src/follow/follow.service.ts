@@ -21,7 +21,7 @@ export class FollowService {
       }
     
     
-      async getFollow(userid:string, userId: string) {
+      async getfollow(userid:string, userId: string) {
         return this.followRepository
         .createQueryBuilder('follow')
         .where(
