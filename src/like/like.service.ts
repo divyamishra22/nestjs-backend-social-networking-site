@@ -2,11 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { Likes } from './like.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LikeRepository } from './like.repository';
+import { PostsService } from 'src/posts/posts.service';
 
 @Injectable()
 export class LikeService {
   constructor(
     @InjectRepository(Likes) private likeRepository: LikeRepository,
+    private postservice: PostsService
     
   ) {}
   async findLikeByUserAndPostId(
@@ -31,9 +33,10 @@ export class LikeService {
   }
 
   async addLike(userId: string, postId: string): Promise<Likes> {
+    const post =  await this.postservice.getPostByPostId(postId);
     const like = new Likes();
     like.userId = userId;
-    like.postId = postId;
+    like.postId = post.id;
 
     await this.likeRepository.save(like);
     return like;

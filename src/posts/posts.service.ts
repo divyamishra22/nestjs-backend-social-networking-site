@@ -27,6 +27,18 @@ export class PostsService {
     return post;
   }
 
+
+async getPostByPostId(postid:string): Promise<Posts>{
+  const post = await this.postRepository.findOne({where:{ id: postid}});
+  if (!post) {
+    throw new NotFoundException('Post not found');
+  }
+  
+  return post;
+}
+  
+
+
   async getallpostsofuser(userid:string): Promise<Posts[]> {
     return await this.postRepository
     .createQueryBuilder('posts')
@@ -49,9 +61,10 @@ export class PostsService {
     }
    
     const result = await this.postRepository.delete({ id });
-    if (result.affected === 0) {
-      throw new NotFoundException(`Post not found`);
-    }
+    return result.affected === 1;
+    // if (result.affected === 0) {
+    //   throw new NotFoundException(`Post not found`);
+    // }
   }
 }
 

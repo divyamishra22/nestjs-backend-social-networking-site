@@ -16,18 +16,19 @@ export class LikeController {
   @Post('/:id')
  
   async handleLike(@Param('id') id: string, @getUserbyId() userid: string ) {
-    const photo = await this.postService.getPostById(id);
+    const photo = await this.postService.getPostByPostId(id);
 
     const like = await this.likeService.findLikeByUserAndPostId(
       userid,
       photo.id,
     );
 
-    if (!like) {
-      return this.likeService.addLike(userid, photo.id);
-    } else {
-      return this.likeService.removeLike(like);
+  }
+    @Post('/:postid')
+    async addLike(@Param('postid') postid: string, @getUserbyId() userid: string){
+      return await this.likeService.addLike(postid,userid);
+
     }
   }
-}
+
 
