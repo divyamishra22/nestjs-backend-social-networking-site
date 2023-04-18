@@ -1,9 +1,10 @@
-import { Controller, Post , Get , Delete, Body, Param} from '@nestjs/common';
+import { Controller, Post , Get , Delete, Body, Param, UseGuards} from '@nestjs/common';
 import { LikeService } from 'src/like/like.service';
 import { PostsService } from './posts.service';
 import { getUserbyId } from 'src/auth/auth.decorator';
 import { User } from 'src/user/user.entity';
-import { ApiProperty, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { JwtGuard } from 'src/auth/guards/jwt.guard';
 
 
 
@@ -21,8 +22,11 @@ export class PostsController {
     private likeService: LikeService,
   ) {}
 
-    @Post('/upload')
-  
+
+
+  @Post('/upload')
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   async uploadPost(
   @getUserbyId() user: User,
   @Body() postcreate: PostCreateRequestBody,) {
@@ -30,7 +34,10 @@ export class PostsController {
     return await this.postService.uploadPost( user, postcreate)
   }
 
+
   @Get('/id')
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   async viewPost(@Param('id') id: string,
   @getUserbyId() userid: string,): Promise<any> {
     
@@ -53,7 +60,8 @@ export class PostsController {
   }
 
   @Delete('/id')
-  
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   async DeletePhoto( @Param('id') id: string,
   @getUserbyId() userid: string,): Promise<any> {
     
