@@ -28,7 +28,7 @@ export class PostsController {
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   async uploadPost(
-  @getUserbyId() user: User,
+  @getUserbyId() user: string,
   @Body() postcreate: PostCreateRequestBody,) {
 
     return await this.postService.uploadPost( user, postcreate)

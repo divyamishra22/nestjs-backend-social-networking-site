@@ -7,12 +7,14 @@ import { User } from 'src/user/user.entity';
 import { Likes } from 'src/like/like.entity';
 import { LikeModule } from 'src/like/like.module';
 import { LikeService } from 'src/like/like.service';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Posts, User, Likes]), 
-        // forwardRef(() => User)
-        LikeModule
+          forwardRef(() => AuthModule),
+          // AuthModule,
+         LikeModule
       ],
       controllers: [PostsController],
       providers: [PostsService, LikeService],

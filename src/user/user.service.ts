@@ -50,7 +50,7 @@ export class UserService {
         const user = new User();
         user.username = createuser.username;
         user.password = password;
-        user.password = await this.passToHash(user.password)
+        // user.password = await this.passToHash(user.password)
         user.email = createuser.email;
         const newUser = await this.userRepo.save(user);
         return newUser;
@@ -72,9 +72,10 @@ export class UserService {
     
         return await this.userRepo.save(existingUser);
       }
-      private async passToHash(password: string): Promise<string> {
-        return hash(password, UserService.PASSWORD_SALT_ROUNDS);
-      }
+      
+      // private async passToHash(password: string): Promise<string> {
+      //   return hash(password, UserService.PASSWORD_SALT_ROUNDS);
+      // }
       
       
 }

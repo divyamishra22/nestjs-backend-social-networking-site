@@ -14,13 +14,13 @@ export class User extends MyBaseEntity {
 //   @Column()
 //   name: string;
 
-  @Column()
+  @Column({ nullable: false, unique: true })
   email: string;
 
-  @Column()
+  @Column({})
   username: string;
 
-  @Column()
+  @Column({ nullable: false })
   password: string;
 
   @Column({ nullable: true })

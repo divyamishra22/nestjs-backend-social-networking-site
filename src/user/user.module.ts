@@ -12,8 +12,8 @@ import { Follow } from 'src/follow/follow.entity';
 @Module({
     imports: [
         TypeOrmModule.forFeature([User, Posts, Likes, Follow]), 
-        // forwardRef(() => Posts)
-        PostsModule
+         forwardRef(() => PostsModule),
+        // PostsModule
       ],
       controllers: [UserController],
       providers: [UserService, ],
