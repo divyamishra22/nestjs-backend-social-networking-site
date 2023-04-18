@@ -7,6 +7,7 @@ import { Posts } from 'src/posts/posts.entity';
 import { Likes } from 'src/like/like.entity';
 import { PostsModule } from 'src/posts/posts.module';
 import { Follow } from 'src/follow/follow.entity';
+import { AuthModule } from 'src/auth/auth.module';
 
 
 @Module({
@@ -14,6 +15,7 @@ import { Follow } from 'src/follow/follow.entity';
         TypeOrmModule.forFeature([User, Posts, Likes, Follow]), 
          forwardRef(() => PostsModule),
         // PostsModule
+        forwardRef(() => AuthModule)
       ],
       controllers: [UserController],
       providers: [UserService, ],

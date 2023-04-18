@@ -1,36 +1,43 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import { FollowRepository } from './follow.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Follow } from './follow.entity';
+import { JwtGuard } from 'src/auth/guards/jwt.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Injectable()
 export class FollowService {
     constructor(
-        @InjectRepository(FollowRepository)
+        @InjectRepository(Follow)
         private followRepository: FollowRepository,
       ) {}
     
       
     
-      async createFollow(userId: string, userFollowid: string): Promise<any>{
+     
+      async createFollow(userToId: string, userFromId: string): Promise<any>{
         const follow = new Follow();
-        follow.userId = userId;
-        follow.userfollowId= userFollowid;
+        follow.userToId = userToId;
+        follow.userFromId= userFromId;
         return await this.followRepository.save(follow);  
         
       }
     
     
-      async getfollow(userid:string, userId: string) {
+      async getfollow(userToId:string, userFromId: string) {
         return this.followRepository
         .createQueryBuilder('follow')
         .where(
-          'follow.userfollowId = :userid AND follow.userId = :userId',
+          'follow.userToId = :userToId AND follow.userFromId = :userFromId',
           {
-            userid,
-            userId,
+            userToId,
+            userFromId,
           },
         )
         .getOne();
+      }
+
+      async deletefollow(id:string): Promise<any>{
+        return await this.followRepository.delete({id}) ;
       }
 }

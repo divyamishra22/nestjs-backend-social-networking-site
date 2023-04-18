@@ -7,14 +7,15 @@ import { Posts } from 'src/posts/posts.entity';
 import { Likes } from './like.entity';
 import { PostsService } from 'src/posts/posts.service';
 import { PostsModule } from 'src/posts/posts.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Likes,Posts, User]), 
-         forwardRef(() => PostsModule)
-
+         forwardRef(() => PostsModule),
+        //  forwardRef(()=>UserModule)
       ],
       controllers: [LikeController],
-      providers: [LikeService,PostsService ],
+      providers: [LikeService, ],
 })
 export class LikeModule {}

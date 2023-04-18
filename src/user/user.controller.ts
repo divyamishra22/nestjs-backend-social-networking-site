@@ -1,9 +1,10 @@
-import { Controller,Get, Post, Patch, Param, Body, ForbiddenException, NotFoundException } from '@nestjs/common';
+import { Controller,Get, Post, Patch, Param, Body, ForbiddenException, NotFoundException, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiProperty, ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiProperty, ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
 import { User } from './user.entity';
 import { getUserbyId } from 'src/auth/auth.decorator';
 import { PostsService } from 'src/posts/posts.service';
+import { JwtGuard } from 'src/auth/guards/jwt.guard';
 
 class UserCreateRequestBody {
     @ApiProperty() username: string;
@@ -26,6 +27,8 @@ export class UserController {
     constructor(private userService: UserService,
       private postService: PostsService) {}
 
+    @ApiBearerAuth()
+    @UseGuards(JwtGuard)
     @Get('/username')
     async getUserByUsername(@Param('username') username: string): Promise<User> {
         const user = await this.userService.getUserByUsername(username);
@@ -35,6 +38,8 @@ export class UserController {
         return user;
     }
   
+    @ApiBearerAuth()
+    @UseGuards(JwtGuard)
     @Get('/userid')
     async getUserByUserid(@Param('userid') userid: string): Promise<User> {
         const user = await this.userService.getUserByUserId(userid);
@@ -58,7 +63,8 @@ export class UserController {
           return user;
     }
   
-    
+    @ApiBearerAuth()
+    @UseGuards(JwtGuard)
     @Patch('/userid')
     async updateUserDetails(
     @Param('userid') userid: string,
@@ -68,6 +74,9 @@ export class UserController {
           return user;
     }
   
+
+    @ApiBearerAuth()
+    @UseGuards(JwtGuard)
   @Get('/allposts')
   async getallpostofuser(@getUserbyId() userid:string)
   {
