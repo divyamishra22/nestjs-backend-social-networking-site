@@ -10,9 +10,7 @@ export class FollowService {
         private followRepository: FollowRepository,
       ) {}
     
-      // async getFollow(userToId: number, userFromId: number) {
-      //   return this.followRepository.getFollow(userToId, userFromId);
-      // }
+      
     
       async createFollow(userId: string, userFollowid: string): Promise<any>{
         const follow = new Follow();
@@ -22,15 +20,17 @@ export class FollowService {
         
       }
     
-      // async deleteFollowById(id: number) {
-      //   return this.followRepository.deleteFollowById(id);
-      // }
     
-      // async getUserFollows(userId: number) {
-      //   return this.followRepository.getUserFollows(userId);
-      // }
-    
-      // async getUserFollowers(userId: number) {
-      //   return this.followRepository.getUserFollowers(userId);
-      // }
+      async getFollow(userid:string, userId: string) {
+        return this.followRepository
+        .createQueryBuilder('follow')
+        .where(
+          'follow.userfollowId = :userid AND follow.userId = :userId',
+          {
+            userid,
+            userId,
+          },
+        )
+        .getOne();
+      }
 }

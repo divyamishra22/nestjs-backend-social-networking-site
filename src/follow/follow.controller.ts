@@ -22,4 +22,8 @@ export class FollowController {
       return await this.followService.createFollow(user.id, userId); // (user to follow, user logged in)
         
       }
+
+      async getfollow(@Param('userid') userid:string, @getUserbyId() userId:string) {
+            return await this.followService.getfollow(userid, userId);
+      }
 }
