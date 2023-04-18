@@ -8,7 +8,7 @@ export class Posts extends MyBaseEntity {
   
 
   @Column()
-  body: string;
+  post: string;
 
 //   @Column()
 //   key: string;

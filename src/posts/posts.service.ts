@@ -10,9 +10,9 @@ export class PostsService {
     @InjectRepository(Posts) private postRepository: PostRepository,
   ) {}
 
-  async uploadPost( user: User, postbody: string) {
+  async uploadPost( user: User, postbody) {
     const post = new Posts();
-    post.body = postbody;
+    post.post = postbody;
     post.user = user;
      return await this.postRepository.save(post);
 

@@ -3,8 +3,14 @@ import { LikeService } from 'src/like/like.service';
 import { PostsService } from './posts.service';
 import { getUserbyId } from 'src/auth/auth.decorator';
 import { User } from 'src/user/user.entity';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
 
+
+
+class PostCreateRequestBody {
+  @ApiProperty() text: string;
+  
+}
 
 
 @ApiTags('posts')
@@ -19,10 +25,9 @@ export class PostsController {
   
   async uploadPost(
   @getUserbyId() user: User,
-  @Body() body: any,) {
-    const photoBody = body.body;
+  @Body() postcreate: PostCreateRequestBody,) {
 
-    return await this.postService.uploadPost( user, photoBody)
+    return await this.postService.uploadPost( user, postcreate)
   }
 
   @Get('/id')
