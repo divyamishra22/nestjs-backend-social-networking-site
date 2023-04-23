@@ -68,6 +68,14 @@ export class PostsController {
     
     return this.postService.deletePostById(id, userid);
   }
+
+
+  @Get('/')
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
+  async getallposts(@getUserbyId() userid:string){
+    return await this.postService.getFeedPosts(userid);
+  }
 }
 
 
