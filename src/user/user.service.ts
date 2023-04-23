@@ -82,9 +82,9 @@ export class UserService {
       async getUserFollows(userid: string): Promise<any> {
         // const user = await this.userRepo.findOne({
         //   where: { id:userid },
-          // relations: ['following'],
-          return await this.followservice.getUserFollows(userid);
-        // });
+        //   relations: ['following'],
+           return await this.followservice.getUserFollows(userid);
+        //  });
       }
       
 }

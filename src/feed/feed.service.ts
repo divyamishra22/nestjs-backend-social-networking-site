@@ -7,19 +7,22 @@ export class FeedService {
     async getFeedData(
         feedsPhotos,
         userId: string,
-      ): Promise<{ isAuthor: boolean; isLiked: boolean; photo: Posts }> {
+      ): Promise<{ isAuthor: boolean; 
+        // isLiked: boolean; 
+        photo: Posts }> {
         return feedsPhotos.map((posts: Posts) => {
           let isAuthor = false;
           if (posts.userId === userId) {
             isAuthor = true;
           }
-          let isLiked = false;
-          posts.likes.map((like: Likes) => {
-            if (like.userId === userId) {
-              isLiked = true;
-            }
-          });
-          return { isAuthor, isLiked, posts};
+          // let isLiked = false;
+          // posts.likes.map((like: Likes) => {
+          //   if (like.userId === userId) {
+          //     isLiked = true;
+          //   }
+          // });
+          // return { isAuthor, isLiked, posts};
+          return { isAuthor, posts};
         });
       }
 }

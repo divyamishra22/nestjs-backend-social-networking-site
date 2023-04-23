@@ -5,7 +5,7 @@ import { Posts } from 'src/posts/posts.entity';
 import { UserService } from 'src/user/user.service';
 import { FeedService } from './feed.service';
 import { PostsService } from 'src/posts/posts.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 
 @ApiTags('feed')
@@ -18,12 +18,15 @@ export class FeedController {
       ) {}
     
       @Get()
+      @ApiBearerAuth()
       @UseGuards(JwtGuard)
       async feedData(
         @getUserbyId() userid: string,
-      ): Promise<{ isAuthor: boolean; isLiked: boolean; photo: Posts }> {
+      ): Promise<{ isAuthor: boolean;
+        //  isLiked: boolean;
+          photo: Posts }> {
         const user = await this.userService.getUserFollows(userid);
-        const arrayUsersId = user.following.map((_user) => _user.userToId);
+        const arrayUsersId = user.userToId.map((_user) => _user.id);
         arrayUsersId.push(userid); // because we also want to show our photos in feed
     
         const feedsPhotos = await this.postService.getFeedPosts(arrayUsersId);
