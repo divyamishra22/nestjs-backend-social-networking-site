@@ -76,7 +76,10 @@ export class UserService {
       // private async passToHash(password: string): Promise<string> {
       //   return hash(password, UserService.PASSWORD_SALT_ROUNDS);
       // }
-      
+   
+      async getUserFollows(userid): Promise<any> {
+        
+      }
       
 }
 

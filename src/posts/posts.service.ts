@@ -66,5 +66,9 @@ async getPostByPostId(postid:string): Promise<Posts>{
     //   throw new NotFoundException(`Post not found`);
     // }
   }
+
+  async getFeedPosts(arrayuserid): Promise<any>{
+    
+  }
 }
 
