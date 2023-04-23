@@ -40,19 +40,19 @@ export class User extends MyBaseEntity {
   // })
   //  likes: Likes[];
 
-  //  @OneToMany((type) => Follow, (follow) => follow.userfollowId, 
-  //  {
-  //   lazy: true,
-  //   cascade: true,
-  // })
-  //  followers  : Follow[];
+   @OneToMany((type) => Follow, (follow) => follow.userToId, 
+   {
+    lazy: true,
+    cascade: true,
+  })
+   followers  : Follow[];
 
-  //  @OneToMany((type) => Follow, (follow) => follow.userId, 
-  //  {
-  //   lazy: true,
-  //   cascade: true,
-  // })
-  //  following  : Follow[];
+   @OneToMany((type) => Follow, (follow) => follow.userFromId, 
+   {
+    lazy: true,
+    cascade: true,
+  })
+   following  : Follow[];
 
 
 }

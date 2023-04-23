@@ -77,8 +77,11 @@ export class UserService {
       //   return hash(password, UserService.PASSWORD_SALT_ROUNDS);
       // }
    
-      async getUserFollows(userid): Promise<any> {
-        
+      async getUserFollows(userid: string): Promise<any> {
+        return await this.userRepo.findOne({
+          where: { id:userid },
+          relations: ['following'],
+        });
       }
       
 }
