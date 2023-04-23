@@ -67,8 +67,12 @@ async getPostByPostId(postid:string): Promise<Posts>{
     // }
   }
 
-  async getFeedPosts(arrayuserid): Promise<any>{
-    
+  async getFeedPosts(arrayuserid: string): Promise<any>{
+    return await this.postRepository.createQueryBuilder('post')
+      .leftJoinAndSelect('post.user', 'postedBy')
+      .leftJoinAndSelect('post.likes', 'likes')
+      .where('photo.userId IN (:...arrayUsersId)', { arrayuserid })
+      .getMany();
   }
 }
 
