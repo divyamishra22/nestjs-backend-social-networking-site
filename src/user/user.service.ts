@@ -3,11 +3,13 @@ import { User,  } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository,  } from './user.repository';
 import { hash } from 'bcrypt';
+import { FollowService } from 'src/follow/follow.service';
 
 @Injectable()
 export class UserService {
     constructor(
-        @InjectRepository(User) private userRepo: UserRepository ) {}
+        @InjectRepository(User) private userRepo: UserRepository ,
+        private followservice: FollowService) {}
 
         public static PASSWORD_SALT_ROUNDS = 10;
       
@@ -78,10 +80,11 @@ export class UserService {
       // }
    
       async getUserFollows(userid: string): Promise<any> {
-        return await this.userRepo.findOne({
-          where: { id:userid },
-          relations: ['following'],
-        });
+        // const user = await this.userRepo.findOne({
+        //   where: { id:userid },
+          // relations: ['following'],
+          return await this.followservice.getUserFollows(userid);
+        // });
       }
       
 }

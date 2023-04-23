@@ -40,4 +40,13 @@ export class FollowService {
       async deletefollow(id:string): Promise<any>{
         return await this.followRepository.delete({id}) ;
       }
+
+      async getUserFollows(userid:string): Promise<any> {
+        return await this.followRepository.createQueryBuilder('follow')
+        .where('follow.userFromId = :userid', {
+          userid,
+        })
+        .getMany(); 
+        
+      }
 }
