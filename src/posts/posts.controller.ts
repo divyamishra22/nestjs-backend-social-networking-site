@@ -41,7 +41,7 @@ export class PostsController {
   async viewPost(@Param('id') id: string,
   @getUserbyId() userid: string,): Promise<any> {
     
-    const post = await this.postService.getPostById(userid);
+    const post = await this.postService.getPostByPostId(userid);
     let isAuthor = false;
     if (post.userId === userid) {
       isAuthor = true;

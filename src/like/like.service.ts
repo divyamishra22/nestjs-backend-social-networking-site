@@ -32,17 +32,23 @@ export class LikeService {
   //   return this.removeLike(like);
   // }
 
-  async addLike(postId: string, userId: string): Promise<any> {
-    const post =  await this.postservice.getPostByPostId(postId);
+  // async addLike( userid: string, postId: string): Promise<Likes> {
+  //   //  const post =  await this.postservice.getPostByPostId(postId);
     
-    const like = new Likes();
-    like.userId = userId;
-    like.postId = post.id;
+  //   const like = new Likes();
+  //   like.userId = userid;
+  //   like.postId = postId;
 
-   return await this.likeRepository.save(like);
+  //  return await this.likeRepository.save(like);
+     
    
-    
-   
+  // }
+
+  async likepost(userid: string , postid: string): Promise<any>{
+    const like = new Likes();
+    like.userId = userid;
+    like.postId = postid;
+    return await this.likeRepository.save(like);
   }
 
   async removeLike(like: Likes): Promise<void> {
