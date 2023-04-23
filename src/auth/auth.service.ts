@@ -24,8 +24,8 @@ export class AuthService {
         if(!user){
         return 'user does not exist';
       }
-      // if(user &&  this.matchPassHash(password, user.password))
-      if(user && user.password == password)
+       if(user &&  this.matchPassHash(password, user.password))
+      // if(user && user.password == password)
       {
         
         return  this.signUser(user.id, user.email, 'user');
@@ -34,14 +34,14 @@ export class AuthService {
         return 'password not match';
       }
 }
-// private async matchPassHash(
-//     password: string,
-//     hash: string,
-//   ): Promise<boolean> {
-//      return (await compare(password, hash));
-//     // return await bcrypt.compare(password, hash)
+private async matchPassHash(
+    password: string,
+    hash: string,
+  ): Promise<boolean> {
+     return (await compare(password, hash)) === true;
+    // return await bcrypt.compare(password, hash)
     
-//   }
+  }
   
   signUser(userId: string, email: string, type:string){
     return this.jwtService.sign({
