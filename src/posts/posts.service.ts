@@ -76,5 +76,17 @@ async getPostByPostId(postid:string): Promise<Posts>{
       .where('post.userId = :arrayuserid', {arrayuserid})
       .getMany();
   }
+
+  // async getFeedPost(arrayuserid: string): Promise<any>{
+  //   return await this.postRepository.createQueryBuilder('post')
+  //   // .leftJoinAndSelect('post.post', 'posted')
+  //     // .leftJoinAndSelect('posts.userId', 'postedBy')
+  //     // .leftJoinAndSelect('post.likes', 'likes')
+  //      .where('post.userId IN (:...arrayUsersId)', { arrayuserid })
+  //     // .where('post.userId = :arrayuserid', {arrayuserid})
+  //     .getMany();
+  // }
+
+
 }
 

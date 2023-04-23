@@ -17,20 +17,19 @@ export class FeedController {
         private postService: PostsService
       ) {}
     
-      @Get()
+      @Get('/')
       @ApiBearerAuth()
       @UseGuards(JwtGuard)
       async feedData(
         @getUserbyId() userid: string,
-      ): Promise<{ isAuthor: boolean;
-        //  isLiked: boolean;
-          photo: Posts }> {
+      ): Promise<any> {
         const user = await this.userService.getUserFollows(userid);
-        const arrayUsersId = user.userToId.map((_user) => _user.id);
+        const arrayUsersId = user.map((_user) => _user.userToId);
         arrayUsersId.push(userid); // because we also want to show our photos in feed
     
-        const feedsPhotos = await this.postService.getFeedPosts(arrayUsersId);
+        return arrayUsersId;
+        // const feedsPhotos = await this.postService.getFeedPost(arrayUsersId);
     
-        return this.feedService.getFeedData(feedsPhotos, userid);
+        // return this.feedService.getFeedData(feedsPhotos, userid);
       }
 }
