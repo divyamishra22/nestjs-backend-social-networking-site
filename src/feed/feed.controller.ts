@@ -5,7 +5,10 @@ import { Posts } from 'src/posts/posts.entity';
 import { UserService } from 'src/user/user.service';
 import { FeedService } from './feed.service';
 import { PostsService } from 'src/posts/posts.service';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('feed')
 @Controller('feed')
 export class FeedController {
     constructor(
