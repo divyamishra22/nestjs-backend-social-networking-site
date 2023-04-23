@@ -20,6 +20,9 @@ import { FollowController } from './follow/follow.controller';
 import { FollowService } from './follow/follow.service';
 import { FollowModule } from './follow/follow.module';
 import { Follow } from './follow/follow.entity';
+import { FeedService } from './feed/feed.service';
+import { FeedController } from './feed/feed.controller';
+import { FeedModule } from './feed/feed.module';
 
 @Module({
   imports: [
@@ -40,8 +43,9 @@ import { Follow } from './follow/follow.entity';
     PostsModule,
     LikeModule,
     AuthModule,
-    FollowModule],
-  controllers: [AppController, ],
-  providers: [AppService, ],
+    FollowModule,
+    FeedModule],
+  controllers: [AppController, FeedController, ],
+  providers: [AppService, FeedService, ],
 })
 export class AppModule {}

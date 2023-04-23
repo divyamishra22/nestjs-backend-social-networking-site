@@ -20,11 +20,11 @@ export class Posts extends MyBaseEntity {
   @Column()
   userId:string;
 
-  // @OneToMany((type) => Likes, (like) => like.postId, 
-  //  {
-  //   lazy: true,
-  //   cascade: true,
-  // })
-  //  likes: Likes[];
+  @OneToMany((type) => Likes, (like) => like.postId, 
+   {
+    lazy: true,
+    cascade: true,
+  })
+   likes: Likes[];
   
 }
