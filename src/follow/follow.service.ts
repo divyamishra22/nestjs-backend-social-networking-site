@@ -42,8 +42,9 @@ export class FollowService {
       }
 
       async getUserFollows(userid:string): Promise<any> {
-        return await this.followRepository.createQueryBuilder('follow')
-        .where('follow.userFromId = :userid', {
+        return await this.followRepository.createQueryBuilder('following')
+        .leftJoinAndSelect('following.userToId', 'userfollowingid')
+        .where('following.userFromId = :userid', {
           userid,
         })
         .getMany(); 

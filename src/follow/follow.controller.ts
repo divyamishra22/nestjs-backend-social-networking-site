@@ -41,4 +41,11 @@ export class FollowController {
       async deletefollow(@Param('id') id:string){
         return await this.followService.deletefollow(id);
       }
+
+      @Get('/')
+      @ApiBearerAuth()
+      @UseGuards(JwtGuard)
+      async getuserfollow(@getUserbyId() userid: string){
+        return await this.followService.getUserFollows(userid);
+      }
 }
