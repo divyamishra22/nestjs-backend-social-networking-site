@@ -5,18 +5,19 @@ import { User } from './user.entity';
 import { getUserbyId } from 'src/auth/auth.decorator';
 import { PostsService } from 'src/posts/posts.service';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
+import { IsEmail, IsString, MinLength } from 'class-validator';
 
 class UserCreateRequestBody {
-    @ApiProperty() username: string;
-    @ApiProperty() password: string;
-    @ApiPropertyOptional() email: string;
+    @ApiProperty() @IsString() username: string;
+    @ApiProperty() @IsEmail() @MinLength(3) password: string;
+    @ApiPropertyOptional() @IsString()  email: string;
     // @ApiPropertyOptional() bio?: string;
   }
   
   class UserUpdateRequestBody {
-    @ApiPropertyOptional() password?: string;
-    @ApiPropertyOptional() name?: string;
-     @ApiPropertyOptional() email?: string;
+    @ApiPropertyOptional() @IsString() @MinLength(3) password?: string;
+    @ApiPropertyOptional() @IsString() name?: string;
+     @ApiPropertyOptional()  @IsEmail() email?: string;
   }
 
 

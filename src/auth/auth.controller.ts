@@ -1,10 +1,11 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
+import { IsEmail, IsString, MinLength } from 'class-validator';
 
 class UserVerifyRequestBody{
-    @ApiProperty() password: string;
-     @ApiProperty()  email: string;
+    @ApiProperty()  @IsString() @MinLength(3) password: string;
+     @ApiProperty() @IsEmail() @IsString()  email: string;
   }
    
 
