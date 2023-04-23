@@ -26,19 +26,19 @@ export class User extends MyBaseEntity {
   @Column({ nullable: true })
   bio: string;
 
-  //  @OneToMany((type) => Posts, (post) => post.user, 
-  //  {
-  //   lazy: true,
-  //   cascade: true,
-  // })
-  //  posts: Posts[];
+   @OneToMany((type) => Posts, (post) => post.user, 
+   {
+    lazy: true,
+    cascade: true,
+  })
+   posts: Posts[];
 
-  //  @OneToMany((type) => Likes, (like) => like.userId, 
-  //  {
-  //   lazy: true,
-  //   cascade: true,
-  // })
-  //  likes: Likes[];
+   @OneToMany((type) => Likes, (like) => like.userId, 
+   {
+    lazy: true,
+    cascade: true,
+  })
+   likes: Likes[];
 
    @OneToMany((type) => Follow, (follow) => follow.userToId, 
    {
