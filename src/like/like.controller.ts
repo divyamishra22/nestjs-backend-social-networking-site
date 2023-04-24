@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { LikeService } from './like.service';
 import { PostsService } from 'src/posts/posts.service';
 import { User } from 'src/user/user.entity';
@@ -31,16 +31,12 @@ export class LikeController {
 
     
     
-    // @Post('/:postid')
-    // @ApiBearerAuth()
-    // @UseGuards(JwtGuard)
-    // async addLike(@getUserbyId() userid: string,@Param('postid') postid:string ){
-    //   // return await this.likeService.addLike(postid,userid);
-    //   // const user = await this.userService.getUserByUserId(userid);
-    //   // return user;
-    //   const post = await this.postService.getPostByPostId(postid);
-    //   return post
-    // }
+    @Get('/:postid')
+    @ApiBearerAuth()
+    @UseGuards(JwtGuard)
+    async getLike(@getUserbyId() userid: string,@Param('postid') postid:string ){
+      return await this.likeService.findLikeByUserAndPhotoId(userid, postid)
+    }
 
 
     @ApiBearerAuth()
@@ -49,6 +45,12 @@ export class LikeController {
     async likepost(@getUserbyId() userid:string, @Param('postid') postid: string){
       return await this.likeService.likepost(userid, postid);
     }
+
+
+    // @Delete('/:like')
+    // async deletelike(@Param('like') like: string){
+    //   return await this.likeService.removeLike(like);
+    // }
   }
 
 

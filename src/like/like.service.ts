@@ -51,8 +51,20 @@ export class LikeService {
     return await this.likeRepository.save(like);
   }
 
-  async removeLike(like: Likes): Promise<void> {
-   await this.likeRepository.remove(like);
+  async findLikeByUserAndPhotoId(
+    userId: string,
+    postId: string,
+  ): Promise<Likes> {
+    return await this.likeRepository.createQueryBuilder('like')
+      .where('like.userId = :userId AND like.postId = :postId', {
+        userId,
+        postId,
+      })
+      .getOne();
   }
+
+  // async removeLike(like: string): Promise<void> {
+  //  await this.likeRepository.remove(like);
+  // }
 }
 
