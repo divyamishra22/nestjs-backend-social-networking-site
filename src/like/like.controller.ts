@@ -47,10 +47,12 @@ export class LikeController {
     }
 
 
-    // @Delete('/:like')
-    // async deletelike(@Param('like') like: string){
-    //   return await this.likeService.removeLike(like);
-    // }
+    @ApiBearerAuth()
+    @UseGuards(JwtGuard)
+    @Delete('/:likeid')
+    async deletelike(@Param('likeid') likeid: string, ){
+      return await this.likeService.deleteLikeById(likeid , );
+    }
   }
 
 

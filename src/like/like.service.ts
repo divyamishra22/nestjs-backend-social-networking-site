@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Likes } from './like.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LikeRepository } from './like.repository';
@@ -66,5 +66,18 @@ export class LikeService {
   // async removeLike(like: string): Promise<void> {
   //  await this.likeRepository.remove(like);
   // }
+
+  async deleteLikeById(id: string, ): Promise<any> {
+    // const like = await this.findLikeByUserAndPostId(id, userid);
+    // if (like.userId !== userid) {
+    //   throw new UnauthorizedException('Unauthorized');
+    // }
+   
+    const result = await this.likeRepository.delete({ id });
+    return result.affected === 1;
+    // if (result.affected === 0) {
+    //   throw new NotFoundException(`Post not found`);
+    // }
+  }
 }
 
