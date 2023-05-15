@@ -10,8 +10,8 @@ export class Posts extends MyBaseEntity {
   @Column()
   post: string;
 
-//   @Column()
-//   key: string;
+  @Column({nullable: true})
+  key: string;
 
   @ManyToOne(() => User,  { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' , })

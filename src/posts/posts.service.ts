@@ -10,6 +10,13 @@ export class PostsService {
     @InjectRepository(Posts) private postRepository: PostRepository,
   ) {}
 
+  async uploadPhoto(key, user){
+    const postimg = new Posts();
+    postimg.key = key;
+    postimg.userId = user;
+     return await this.postRepository.save(postimg);
+  }
+
   async uploadPost( user: string, postbody) {
     const post = new Posts();
     post.post = postbody;
