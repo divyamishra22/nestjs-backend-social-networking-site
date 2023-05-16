@@ -8,9 +8,9 @@ import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { IsEmail, IsString, MinLength } from 'class-validator';
 
 class UserCreateRequestBody {
-    @ApiProperty() @IsString() username: string;
+    @ApiProperty() @IsString() email: string;
     @ApiProperty() @IsEmail() @MinLength(3) password: string;
-    @ApiPropertyOptional() @IsString()  email: string;
+    @ApiPropertyOptional() @IsString()  username: string;
     // @ApiPropertyOptional() bio?: string;
   }
   

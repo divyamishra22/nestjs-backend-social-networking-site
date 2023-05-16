@@ -34,8 +34,8 @@ export class UserService {
         createuser: Partial<User>,
         password: string,
       ): Promise<User> {
-        if (createuser.username.length < 5)
-          throw new BadRequestException('Username must be of minimum 5 characters');
+        // if (createuser.username.length < 5)
+        //   throw new BadRequestException('Username must be of minimum 5 characters');
     
         if (password.length < 8)
           throw new BadRequestException('Password must be of minimum 8 characters');
@@ -45,9 +45,9 @@ export class UserService {
             'Password cannot contain the word password itself',
           );
     
-        const usernameAlreadyExists = await this.getUserByUsername(createuser.username);
-        if (usernameAlreadyExists)
-          throw new ConflictException('This username is already taken!');
+        const emailAlreadyExists = await this.findbyemail(createuser.email);
+        if (emailAlreadyExists)
+          throw new ConflictException('This email is already taken!');
     
         const user = new User();
         user.username = createuser.username;

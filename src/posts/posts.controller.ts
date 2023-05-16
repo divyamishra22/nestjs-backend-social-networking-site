@@ -41,7 +41,10 @@ export class PostsController {
   //   return await this.postService.uploadPhoto(key, user);
   // }
 
+
   @Post('/uploadimage')
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @UseInterceptors(
     FileInterceptor("file", {
       storage: diskStorage({
@@ -64,7 +67,8 @@ export class PostsController {
     },
   })
   @ApiConsumes("multipart/form-data")
-  async post(@UploadedFile() file): Promise<void> {
+  async post(@UploadedFile() file,
+  @getUserbyId() user: User,): Promise<any> {
     console.log(file);
     
   }
