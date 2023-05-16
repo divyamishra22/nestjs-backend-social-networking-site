@@ -50,8 +50,9 @@ export class UserService {
           throw new ConflictException('This email is already taken!');
     
         const user = new User();
+        if(createuser.username)
         user.username = createuser.username;
-        user.password = password;
+        user.password = createuser.password;
         //  user.password = await this.passToHash(user.password)
         user.email = createuser.email;
         const newUser = await this.userRepo.save(user);
