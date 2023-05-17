@@ -10,6 +10,7 @@ import { IsEmail, IsString, MinLength } from 'class-validator';
 class UserCreateRequestBody {
     @ApiProperty() @IsString() email: string;
     @ApiProperty() @IsEmail() @MinLength(3) password: string;
+    @ApiProperty() @IsString() name: string;
     @ApiPropertyOptional() @IsString()  username: string;
     // @ApiPropertyOptional() bio?: string;
   }
