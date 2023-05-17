@@ -12,7 +12,7 @@ import { ApiResponse, ApiConsumes, ApiBody } from "@nestjs/swagger";
 
 class PostCreateRequestBody {
   @ApiProperty() text: string;
-  
+  @ApiProperty() image: string;
 }
 
 

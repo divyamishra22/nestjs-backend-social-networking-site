@@ -18,10 +18,11 @@ export class PostsService {
   // }
 
   async uploadPost( user: string, postbody) {
-    const post = new Posts();
-    post.post = postbody;
-    post.userId = user;
-     return await this.postRepository.save(post);
+    const posts = new Posts();
+    posts.post = postbody.text;
+    posts.image = postbody.image;
+    posts.userId = user;
+     return await this.postRepository.save(posts);
 
   }
 

@@ -7,11 +7,11 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 export class Posts extends MyBaseEntity {
   
 
-  @Column()
+  @Column({default:true})
   post: string;
 
-  // @Column({})
-  // key: string;
+  @Column({default:true})
+  image: string;
 
   
 
