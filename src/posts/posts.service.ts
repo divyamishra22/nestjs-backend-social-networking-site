@@ -1,13 +1,15 @@
-import { Injectable, NotFoundException,  UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException,  UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PostRepository } from './posts.repository';
 import { User } from 'src/user/user.entity';
 import { Posts } from './posts.entity';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(Posts) private postRepository: PostRepository,
+    private cloudinary: CloudinaryService
   ) {}
 
   // async uploadPhoto(key, user){
@@ -17,10 +19,15 @@ export class PostsService {
   //    return await this.postRepository.save(postimg);
   // }
 
-  async uploadPost( user: string, postbody) {
+  async uploadPost( user: string, postcreate) {
+    // const url = await this.cloudinary.uploadImage(file).catch(() =>{
+    //   throw new BadRequestException('Invalid file Type.');
+    // })
     const posts = new Posts();
-    posts.post = postbody.text;
-    posts.image = postbody.image;
+    if(postcreate.text)
+    {posts.post = postcreate.text;}
+    if(postcreate.image)
+    {posts.image = postcreate.image;}
     posts.userId = user;
      return await this.postRepository.save(posts);
 
