@@ -43,7 +43,7 @@ export class UserController {
     @ApiBearerAuth()
     @UseGuards(JwtGuard)
     @Get('/userid')
-    async getUserByUserid(@Param('userid') userid: string): Promise<User> {
+    async getUserByUserid(@Param('userId') userid: string): Promise<User> {
         const user = await this.userService.getUserByUserId(userid);
 
         if (!user) {
@@ -85,6 +85,13 @@ export class UserController {
       return this.postService.getallpostsofuser(userid);
   }
     
+
+  @Get('/allusers')
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
+  async allposts(){
+    return await this.userService.getallUsers();
+  }
 
     
 }
