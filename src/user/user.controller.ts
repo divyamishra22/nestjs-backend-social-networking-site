@@ -12,8 +12,8 @@ class UserCreateRequestBody {
     @ApiProperty() @IsString() email: string;
     @ApiProperty() @IsEmail() @MinLength(3) password: string;
     @ApiProperty() @IsString() name: string;
-    @ApiPropertyOptional() @IsString()  username: string;
-    // @ApiPropertyOptional() bio?: string;
+    @ApiProperty() @IsString()  username: string;
+     @ApiPropertyOptional() bio?: string;
   }
   
   class UserUpdateRequestBody {
@@ -31,7 +31,8 @@ export class UserController {
       private postService: PostsService) {}
       private followService: FollowService
 
-      @Get('/:username')
+  @ApiBearerAuth()
+  @Get('/:username') // (/: to pass username as a parameter)
   @UseGuards(JwtGuard)
   async view(@Param('username') username: string, @getUserbyId() User: User) {
     const user = await this.userService.getUserByUsername(username);
