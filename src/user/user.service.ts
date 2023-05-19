@@ -89,9 +89,9 @@ export class UserService {
         //  });
       }
       
-      async getallUsers(): Promise<User[]>{
-        return await this.userRepo.find();
-       }
+      // async getallUsers(): Promise<User[]>{
+      //   return await this.userRepo.find();
+      //  }
 }
 
 

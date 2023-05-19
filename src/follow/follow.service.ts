@@ -50,4 +50,22 @@ export class FollowService {
         .getMany(); 
         
       }
+
+      async getuserfollowing(userid: string): Promise<number>{
+        return await this.followRepository.createQueryBuilder('following')
+        .leftJoinAndSelect('following.userToId', 'userfollowingid')
+        .where('following.userFromId = :userid', {
+          userid,
+        })
+        .getCount(); 
+        
+      }
+
+      async getUserFollowers(userid) : Promise<number>{
+        return await this.followRepository.createQueryBuilder('follow')
+        .where('follow.userToId = :userToId', {
+          userid,
+        })
+        .getCount();
+      }
 }
