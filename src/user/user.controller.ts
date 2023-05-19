@@ -6,6 +6,7 @@ import { getUserbyId } from 'src/auth/auth.decorator';
 import { PostsService } from 'src/posts/posts.service';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { IsEmail, IsString, MinLength } from 'class-validator';
+import { FollowService } from 'src/follow/follow.service';
 
 class UserCreateRequestBody {
     @ApiProperty() @IsString() email: string;
@@ -28,6 +29,33 @@ class UserCreateRequestBody {
 export class UserController {
     constructor(private userService: UserService,
       private postService: PostsService) {}
+      private followService: FollowService
+
+      @Get('/:username')
+  @UseGuards(JwtGuard)
+  async view(@Param('username') username: string, @getUserbyId() User: User) {
+    const user = await this.userService.getUserByUsername(username);
+    const userPostsCount = await this.postService.getAllUserPostsCount(user.id);
+    const userFollowingCount = await this.followService.getuserfollowing(user.id);
+    const userFollowersCount = await this.followService.getUserFollowers(
+      user.id,
+    );
+    let isProfile = false;
+    if (user.id === User.id) {
+      isProfile = true;
+    }
+
+    const isFollow = await this.followService.getfollow(user.id, User.id); // (users profile, user logged in)
+
+    return {
+      user,
+      userPostsCount,
+      userFollowingCount,
+      userFollowersCount,
+      isProfile,
+      isFollow: isFollow ? true : false,
+    };
+  }
 
     @ApiBearerAuth()
     @UseGuards(JwtGuard)
@@ -86,12 +114,12 @@ export class UserController {
   }
     
 
-  @Get('/allusers')
-  @ApiBearerAuth()
-  @UseGuards(JwtGuard)
-  async allposts(){
-    return await this.userService.getallUsers();
-  }
+  // @Get('/allusers')
+  // @ApiBearerAuth()
+  // @UseGuards(JwtGuard)
+  // async allposts(){
+  //   return await this.userService.getallUsers();
+  // }
 
     
 }
