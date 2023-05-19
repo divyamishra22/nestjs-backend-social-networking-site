@@ -28,18 +28,17 @@ class UserCreateRequestBody {
 @Controller('user')
 export class UserController {
     constructor(private userService: UserService,
-      private postService: PostsService) {}
-      private followService: FollowService
+      private postService: PostsService,
+      private followService: FollowService) {}
 
   @ApiBearerAuth()
   @Get('/viewprofile/:username') // (/: to pass username as a parameter)
   @UseGuards(JwtGuard)
   async view(@Param('username') username: string, @getUserbyId() userid: string) {
     const user = await this.userService.getUserByUsername(username);
-     const userPostsCount = await this.postService.getAllUserPostsCount(user.id);
-    const userFollowingCount = await this.followService.getuserfollowing(user.id);
-    const userFollowersCount = await this.followService.getUserFollowers(
-      user.id);
+       const userPostsCount = await this.postService.getAllUserPostsCount(user.id);
+     const userFollowingCount = await this.followService.getuserfollowing(user.id);
+    const userFollowersCount = await this.followService.getUserFollowers(user.id);
     let isProfile = false;
     if (user.id === userid) {
       isProfile = true;
@@ -49,7 +48,7 @@ export class UserController {
 
     return {
       user,
-       userPostsCount,
+        userPostsCount,
       userFollowingCount,
       userFollowersCount,
       isProfile,
