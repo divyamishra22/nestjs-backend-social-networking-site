@@ -32,25 +32,24 @@ export class UserController {
       private followService: FollowService
 
   @ApiBearerAuth()
-  @Get('/:username') // (/: to pass username as a parameter)
+  @Get('/viewprofile/:username') // (/: to pass username as a parameter)
   @UseGuards(JwtGuard)
-  async view(@Param('username') username: string, @getUserbyId() User: User) {
+  async view(@Param('username') username: string, @getUserbyId() userid: string) {
     const user = await this.userService.getUserByUsername(username);
-    const userPostsCount = await this.postService.getAllUserPostsCount(user.id);
+     const userPostsCount = await this.postService.getAllUserPostsCount(user.id);
     const userFollowingCount = await this.followService.getuserfollowing(user.id);
     const userFollowersCount = await this.followService.getUserFollowers(
-      user.id,
-    );
+      user.id);
     let isProfile = false;
-    if (user.id === User.id) {
+    if (user.id === userid) {
       isProfile = true;
     }
 
-    const isFollow = await this.followService.getfollow(user.id, User.id); // (users profile, user logged in)
+    const isFollow = await this.followService.getfollow(user.id, userid); // (users profile, user logged in)
 
     return {
       user,
-      userPostsCount,
+       userPostsCount,
       userFollowingCount,
       userFollowersCount,
       isProfile,
@@ -60,7 +59,7 @@ export class UserController {
 
     @ApiBearerAuth()
     @UseGuards(JwtGuard)
-    @Get('/username')
+    @Get('/:username')
     async getUserByUsername(@Param('username') username: string): Promise<User> {
         const user = await this.userService.getUserByUsername(username);
         if (!user) {
@@ -71,7 +70,7 @@ export class UserController {
   
     @ApiBearerAuth()
     @UseGuards(JwtGuard)
-    @Get('/userid')
+    @Get('/:userid')
     async getUserByUserid(@Param('userId') userid: string): Promise<User> {
         const user = await this.userService.getUserByUserId(userid);
 
@@ -96,7 +95,7 @@ export class UserController {
   
     @ApiBearerAuth()
     @UseGuards(JwtGuard)
-    @Patch('/userid')
+    @Patch('/:userid')
     async updateUserDetails(
     @Param('userid') userid: string,
     @Body() updateUserRequest: UserUpdateRequestBody,
