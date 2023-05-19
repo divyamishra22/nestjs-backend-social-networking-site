@@ -62,10 +62,17 @@ async getPostByPostId(postid:string): Promise<Posts>{
   }
 
   async getAllUserPostsCount(userId: string) {
+    try{
+    await this.getPostById(userId);
+    }
+    catch(NotFoundException){
+      return 0;
+    }
     return this.postRepository
     .createQueryBuilder('post')
-      .where('post.userId = :id', {userId,})
+      .where('post.userId = userId', {userId})
       .getCount()
+
   }
 
 
