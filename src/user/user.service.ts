@@ -15,6 +15,7 @@ export class UserService {
       
       public async getUserByUsername(username: string): Promise<User> {
         return await this.userRepo.findOne({ where: { username } });
+        
       }
     
       async findOne(id:string): Promise<User>{
@@ -34,23 +35,26 @@ export class UserService {
         createuser: Partial<User>,
         password: string,
       ): Promise<User> {
-        // if (createuser.username.length < 5)
-        //   throw new BadRequestException('Username must be of minimum 5 characters');
+        if (createuser.username.length < 5)
+          throw new BadRequestException('Username must be of minimum 5 characters');
+
+          const userbyusername = await this.getUserByUsername(createuser.username)
+          if(userbyusername)
+          throw new ConflictException('This username is already taken!');
+
     
         if (password.length < 8)
           throw new BadRequestException('Password must be of minimum 8 characters');
     
         if (password.toLowerCase().includes('password'))
-          throw new BadRequestException(
-            'Password cannot contain the word password itself',
-          );
+          throw new BadRequestException('Password cannot contain the word password itself');
     
         const emailAlreadyExists = await this.findbyemail(createuser.email);
         if (emailAlreadyExists)
           throw new ConflictException('This email is already taken!');
     
         const user = new User();
-        if(createuser.username)
+        // if(createuser.username)
         user.username = createuser.username;
         user.name = createuser.name
         user.password = createuser.password;
