@@ -53,7 +53,7 @@ export class FollowService {
 
       async getuserfollowing(userid: string): Promise<number>{
         return await this.followRepository.createQueryBuilder('following')
-        .leftJoinAndSelect('following.userToId', 'userfollowingid')
+        // .leftJoinAndSelect('following.userToId', 'userfollowingid')
         .where('following.userFromId = :userid', {
           userid,
         })
@@ -63,7 +63,7 @@ export class FollowService {
 
       async getUserFollowers(userid) : Promise<number>{
         return await this.followRepository.createQueryBuilder('follow')
-        .leftJoinAndSelect('follow.userFromId', 'userfollowersid')
+        // .leftJoinAndSelect('follow.userFromId', 'userfollowersid')
         .where('follow.userToId = :userid', {
           userid,
         })
