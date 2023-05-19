@@ -96,6 +96,12 @@ export class UserService {
       // async getallUsers(): Promise<User[]>{
       //   return await this.userRepo.find();
       //  }
+
+      async searchUsers(term) {
+        return this.userRepo.createQueryBuilder('user')
+          .where('user.username LIKE :term OR user.name LIKE :term', { term })
+          .getMany();
+      }
 }
 
 

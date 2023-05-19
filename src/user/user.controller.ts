@@ -120,5 +120,11 @@ export class UserController {
   //   return await this.userService.getallUsers();
   // }
 
+  @Get('/search/:term')
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
+  searchUsers(@Param('term') term: string) {
+    return this.userService.searchUsers(term);
+  }
     
 }
