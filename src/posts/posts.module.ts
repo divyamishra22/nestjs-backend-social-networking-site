@@ -9,9 +9,11 @@ import { LikeModule } from 'src/like/like.module';
 import { LikeService } from 'src/like/like.service';
 import { AuthModule } from 'src/auth/auth.module';
 import { UserModule } from 'src/user/user.module';
+// import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
 
 @Module({
-    imports: [
+    imports: [ 
+        //cloudinary,
         TypeOrmModule.forFeature([Posts, User, Likes]), 
           forwardRef(() => AuthModule, ),
           // AuthModule,

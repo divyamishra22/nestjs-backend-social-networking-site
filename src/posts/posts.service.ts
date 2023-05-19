@@ -3,13 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PostRepository } from './posts.repository';
 import { User } from 'src/user/user.entity';
 import { Posts } from './posts.entity';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+// import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(Posts) private postRepository: PostRepository,
-    private cloudinary: CloudinaryService
+    // private cloudinary: CloudinaryService
   ) {}
 
   // async uploadPhoto(key, user){
@@ -103,7 +103,9 @@ async getPostByPostId(postid:string): Promise<Posts>{
       .getMany();
 
   }
-
+ async getallPosts(): Promise<Posts[]>{
+  return await this.postRepository.find();
+ }
 
 }
 

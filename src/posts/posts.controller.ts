@@ -143,6 +143,13 @@ export class PostsController {
   async getallposts(@getUserbyId() userid:string){
     return await this.postService.getFeedPosts(userid);
   }
+
+  @Get('alluserposts')
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
+  async allposts(){
+    return await this.postService.getallPosts();
+  }
 }
 
 

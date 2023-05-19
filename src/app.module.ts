@@ -23,6 +23,7 @@ import { Follow } from './follow/follow.entity';
 import { FeedService } from './feed/feed.service';
 import { FeedController } from './feed/feed.controller';
 import { FeedModule } from './feed/feed.module';
+// import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -44,7 +45,9 @@ import { FeedModule } from './feed/feed.module';
     LikeModule,
     AuthModule,
     FollowModule,
-    FeedModule],
+    FeedModule,
+    // CloudinaryModule
+  ],
   controllers: [AppController, FeedController, ],
   providers: [AppService, FeedService, ],
 })
