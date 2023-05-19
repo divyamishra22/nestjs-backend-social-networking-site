@@ -63,7 +63,8 @@ export class FollowService {
 
       async getUserFollowers(userid) : Promise<number>{
         return await this.followRepository.createQueryBuilder('follow')
-        .where('follow.userToId = :userToId', {
+        .leftJoinAndSelect('follow.userFromId', 'userfollowersid')
+        .where('follow.userToId = :userid', {
           userid,
         })
         .getCount();
