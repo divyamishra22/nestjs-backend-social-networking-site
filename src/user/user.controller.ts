@@ -35,8 +35,15 @@ export class UserController {
   @Get('/viewprofile/:username') // (/: to pass username as a parameter)
   @UseGuards(JwtGuard)
   async view(@Param('username') username: string, @getUserbyId() userid: string) {
+    
     const user = await this.userService.getUserByUsername(username);
-       const userPostsCount = await this.postService.getAllUserPostsCount(user.id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    else
+    {
+      const userPostsCount = await this.postService.getAllUserPostsCount(user.id);
      const userFollowingCount = await this.followService.getuserfollowing(user.id);
     const userFollowersCount = await this.followService.getUserFollowers(user.id);
     let isProfile = false;
@@ -53,7 +60,10 @@ export class UserController {
       userFollowersCount,
       isProfile,
       isFollow: isFollow ? true : false,
-    };
+   
+  }
+}
+  
   }
 
     @ApiBearerAuth()
