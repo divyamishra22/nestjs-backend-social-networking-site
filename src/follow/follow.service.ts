@@ -2,8 +2,7 @@ import { Injectable, UseGuards } from '@nestjs/common';
 import { FollowRepository } from './follow.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Follow } from './follow.entity';
-import { JwtGuard } from 'src/auth/guards/jwt.guard';
-import { ApiBearerAuth } from '@nestjs/swagger';
+
 
 @Injectable()
 export class FollowService {
