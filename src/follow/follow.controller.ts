@@ -38,8 +38,9 @@ export class FollowController {
       @ApiBearerAuth()
       @UseGuards(JwtGuard)
       @Delete('/:id')           //params should always have :then the id/userid
-      async deletefollow(@Param('id') id:string){
-        return await this.followService.deletefollow(id);
+      async deletefollow(@Param('id') id:string , @getUserbyId() userid:string){
+       const res = await this.followService.getfollow(id, userid);
+        return await this.followService.deletefollow(res.id);
       }
 
       @Get('/')
