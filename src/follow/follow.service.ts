@@ -2,6 +2,7 @@ import { Injectable, UseGuards } from '@nestjs/common';
 import { FollowRepository } from './follow.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Follow } from './follow.entity';
+import { User } from 'src/user/user.entity';
 
 
 @Injectable()
@@ -36,8 +37,14 @@ export class FollowService {
         .getOne();
       }
 
+
+      async getfollowid(userid): Promise<any>{
+      return await this.followRepository.findOne({where: {userToId:userid} })
+      }
+
       async deletefollow(id:string): Promise<any>{
         return await this.followRepository.delete({id}) ;
+        
       }
 
       async getUserFollows(userid:string): Promise<any> {
