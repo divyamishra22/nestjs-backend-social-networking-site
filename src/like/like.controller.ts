@@ -35,7 +35,11 @@ export class LikeController {
     @ApiBearerAuth()
     @UseGuards(JwtGuard)
     async getLike(@getUserbyId() userid: string,@Param('postid') postid:string ){
-      return await this.likeService.findLikeByUserAndPhotoId(userid, postid)
+      try
+     { return await this.likeService.findLikeByUserAndPhotoId(userid, postid)}
+     catch{
+      return false;
+     }
     }
 
 
