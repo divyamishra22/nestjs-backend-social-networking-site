@@ -12,7 +12,7 @@ export class FeedService {
         photo: Posts }> {
         return feedsPhotos.map((posts: Posts) => {
           let isAuthor = false;
-          if (posts.userId === userId) {
+          if (posts.userId == userId) {
             isAuthor = true;
           }
           // let isLiked = false;
