@@ -48,7 +48,8 @@ export class FollowController {
       @UseGuards(JwtGuard)
       async getuserfollow(@getUserbyId() userid: string){
         try
-       { return await this.followService.getUserFollows(userid);}
+       { const follow = await this.followService.getUserFollows(userid);
+          return {follow, userid}}
        catch{
         return false;
        }
