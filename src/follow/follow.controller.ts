@@ -23,8 +23,12 @@ export class FollowController {
         if (user.id === userId) {
           throw new BadRequestException('You cant follow Yourself..');
         }
+        try{
       return await this.followService.createFollow(user.id, userId); // (user to follow, user logged in)
-        
+        }
+        catch{
+          return true;
+        } 
       }
 
       @ApiBearerAuth()

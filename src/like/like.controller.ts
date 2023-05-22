@@ -43,7 +43,12 @@ export class LikeController {
     @UseGuards(JwtGuard)
     @Post('/:postid')
     async likepost(@getUserbyId() userid:string, @Param('postid') postid: string){
-      return await this.likeService.likepost(userid, postid);
+      try
+      {return await this.likeService.likepost(userid, postid);}
+      catch{
+        return true;
+      }
+
     }
 
 
