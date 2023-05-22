@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { Likes } from './like.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LikeRepository } from './like.repository';
@@ -24,9 +24,10 @@ export class LikeService {
       .getOne();
   }
 
-  // async Likepost(userId: string, photoId: string): Promise<Likes> {
-  //   return this.addLike(userId, photoId);
-  // }
+  async findLikeBypostId( postId: string): Promise<Likes> {
+    const like = await this.likeRepository.findOne({ where: { postId: postId }});
+    return like
+  }
 
   // async unLikepost(like: Likes): Promise<void> {
   //   return this.removeLike(like);
@@ -59,13 +60,20 @@ export class LikeService {
   async findLikeByUserAndPhotoId(
     userId: string,
     postId: string,
-  ): Promise<Likes> {
-    return await this.likeRepository.createQueryBuilder('like')
+  ): Promise<any> {
+    
+   const likes= await this.findLikeBypostId(postId)
+   if(likes)
+    {return await this.likeRepository.createQueryBuilder('like')
       .where('like.userId = :userId AND like.postId = :postId', {
         userId,
         postId,
       })
-      .getOne();
+      .getOne();}
+    else{
+      throw new NotFoundException('Likes not found');
+    }
+      
   }
 
   // async removeLike(like: string): Promise<void> {
