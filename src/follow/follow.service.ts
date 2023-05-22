@@ -1,4 +1,4 @@
-import { Injectable, UseGuards } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UseGuards } from '@nestjs/common';
 import { FollowRepository } from './follow.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Follow } from './follow.entity';
@@ -16,11 +16,16 @@ export class FollowService {
     
      
       async createFollow(userToId: string, userFromId: string): Promise<any>{
-        const follow = new Follow();
+        const isfollow = await this.getfollow(userToId, userFromId)
+        if(!isfollow.id)
+       { const follow = new Follow();
         follow.userToId = userToId;
         follow.userFromId= userFromId;
         return await this.followRepository.save(follow);  
-        
+        }
+        else{
+          throw new ConflictException('already following!');
+        }
       }
     
     
@@ -38,8 +43,8 @@ export class FollowService {
       }
 
 
-      async getfollowid(userid): Promise<any>{
-      return await this.followRepository.findOne({where: {userToId:userid} })
+      async getfollowByUserid(userid): Promise<any>{
+      return await this.followRepository.findOne({where: {userFromId:userid} })
       }
 
       async deletefollow(id:string): Promise<any>{
@@ -48,12 +53,18 @@ export class FollowService {
       }
 
       async getUserFollows(userid:string): Promise<any> {
-        return await this.followRepository.createQueryBuilder('following')
+        const follow = await this.getfollowByUserid(userid);
+        if(follow.id)
+       { return await this.followRepository.createQueryBuilder('following')
         .leftJoinAndSelect('following.userToId', 'userfollowingid')
         .where('following.userFromId = :userid', {
           userid,
         })
         .getMany(); 
+      }
+      else{
+        throw new NotFoundException('No Users Followed ')
+      }
         
       }
 
