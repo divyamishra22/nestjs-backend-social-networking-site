@@ -57,7 +57,7 @@ async getPostByPostId(postid:string): Promise<Posts>{
   async getallpostsofuser(userid:string): Promise<Posts[]> {
     return await this.postRepository
     .createQueryBuilder('posts')
-    .where('posts.userId: userid',{userid})
+    .where('posts.userId = :userid',{userid})
     .getMany();
   }
 
