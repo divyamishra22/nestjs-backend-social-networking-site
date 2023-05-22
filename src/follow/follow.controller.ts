@@ -47,6 +47,10 @@ export class FollowController {
       @ApiBearerAuth()
       @UseGuards(JwtGuard)
       async getuserfollow(@getUserbyId() userid: string){
-        return await this.followService.getUserFollows(userid);
+        try
+       { return await this.followService.getUserFollows(userid);}
+       catch{
+        return false;
+       }
       }
 }

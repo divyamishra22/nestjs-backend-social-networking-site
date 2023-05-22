@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, NotFoundException, UseGuards } from '@nestjs/common';
 import { getUserbyId } from 'src/auth/auth.decorator';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { Posts } from 'src/posts/posts.entity';
@@ -23,8 +23,9 @@ export class FeedController {
       async feedData(
         @getUserbyId() userid: string,
       ): Promise<any> {
-        const user = await this.userService.getUserFollows(userid);
-        const arrayUsersId = user.map((_user) => _user.userToId);
+        try
+        {const user = await this.userService.getUserFollows(userid);
+       const arrayUsersId = user.map((_user) => _user.userToId);
         // arrayUsersId.push(userid); // because we also want to show our photos in feed
     
           // return arrayUsersId;
@@ -32,5 +33,10 @@ export class FeedController {
     
          return feedsPhotos;
         // return this.feedService.getFeedData(feedsPhotos, userid);
+      }
+      catch{
+        return false;
+      }
+      
       }
 }
