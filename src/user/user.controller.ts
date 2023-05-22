@@ -46,6 +46,7 @@ export class UserController {
       const userPostsCount = await this.postService.getAllUserPostsCount(user.id);
      const userFollowingCount = await this.followService.getuserfollowing(user.id);
     const userFollowersCount = await this.followService.getUserFollowers(user.id);
+    const userPosts = await this.postService.getallpostsofuser(user.id)
     let isProfile = false;
     if (user.id === userid) {
       isProfile = true;
@@ -60,6 +61,7 @@ export class UserController {
       userFollowersCount,
       isProfile,
       isFollow: isFollow ? true : false,
+      userPosts
    
   }
 }
@@ -124,13 +126,13 @@ export class UserController {
     
 
 
-  @ApiBearerAuth()
-  @UseGuards(JwtGuard)
-@Get('/:Id/allposts')
-async getallpostofuserbyuserid( @Param('Id') Id:string)
-{
-    return this.postService.getallpostsofuser(Id);
-}
+//   @ApiBearerAuth()
+//   @UseGuards(JwtGuard)
+// @Get('/:Id/allposts')
+// async getallpostofuserbyuserid( @Param('Id') Id:string)
+// {
+//     return this.postService.getallpostsofuser(Id);
+// }
  
 
   @Get('/search/:term')
