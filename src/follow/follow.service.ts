@@ -43,9 +43,9 @@ export class FollowService {
       }
 
 
-      async getfollowByUserid(userid): Promise<any>{
-      return await this.followRepository.findOne({where: {userFromId:userid} })
-      }
+      // async getfollowByUserid(userid): Promise<any>{
+      // return await this.followRepository.find({where: {userFromId:userid} })
+      // }
 
       async deletefollow(id:string): Promise<any>{
         return await this.followRepository.delete({id}) ;
@@ -53,8 +53,8 @@ export class FollowService {
       }
 
       async getUserFollows(userid:string): Promise<any> {
-        const follow = await this.getfollowByUserid(userid);
-        if(follow.id)
+        const follow = await this.getuserfollowing(userid);
+        if(follow)
        { return await this.followRepository.createQueryBuilder('following')
         .leftJoinAndSelect('following.userToId', 'userfollowingid')
         .where('following.userFromId = :userid', {
