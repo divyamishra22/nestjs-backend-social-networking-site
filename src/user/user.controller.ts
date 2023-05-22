@@ -123,12 +123,15 @@ export class UserController {
   }
     
 
-  // @Get('/allusers')
-  // @ApiBearerAuth()
-  // @UseGuards(JwtGuard)
-  // async allposts(){
-  //   return await this.userService.getallUsers();
-  // }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
+@Get('/:Id/allposts')
+async getallpostofuserbyuserid( @Param('Id') Id:string)
+{
+    return this.postService.getallpostsofuser(Id);
+}
+ 
 
   @Get('/search/:term')
   @ApiBearerAuth()
