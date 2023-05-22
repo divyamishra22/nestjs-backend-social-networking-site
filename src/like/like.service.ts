@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Likes } from './like.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LikeRepository } from './like.repository';
@@ -45,10 +45,15 @@ export class LikeService {
   // }
 
   async likepost(userid: string , postid: string): Promise<any>{
-    const like = new Likes();
+    const likes = await this.findLikeByUserAndPhotoId(userid, postid)
+    if(likes.id)
+    {const like = new Likes();
     like.userId = userid;
     like.postId = postid;
-    return await this.likeRepository.save(like);
+    return await this.likeRepository.save(like);}
+    else{
+      throw new ConflictException('Like already exists');
+    }
   }
 
   async findLikeByUserAndPhotoId(
