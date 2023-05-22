@@ -54,24 +54,25 @@ async getPostByPostId(postid:string): Promise<Posts>{
   
 
 
-  async getallpostsofuser(userid:string): Promise<Posts[]> {
+  async getallpostsofuser(userId:string): Promise<Posts[]> {
     return await this.postRepository
     .createQueryBuilder('posts')
-    .where('posts.userId = :userid',{userid})
+    .where('posts.userId = :userId',{userId})
     .getMany();
   }
 
   async getAllUserPostsCount(userId: string) {
     try{
-    await this.getPostById(userId);
+   const userpost= await this.getPostById(userId);
+   const userid = userpost.userId;
+    return this.postRepository
+    .createQueryBuilder('post')
+      .where('post.userId = :userid', {userid})      // mandatory to use : before userid
+      .getCount()
     }
     catch(NotFoundException){
       return 0;
     }
-    return this.postRepository
-    .createQueryBuilder('post')
-      .where('post.userId = userId', {userId})
-      .getCount()
 
   }
 
