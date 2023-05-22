@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository,  } from './user.repository';
 import { hash } from 'bcrypt';
 import { FollowService } from 'src/follow/follow.service';
+import { Posts } from 'src/posts/posts.entity';
 
 @Injectable()
 export class UserService {
@@ -93,10 +94,7 @@ export class UserService {
         //  });
       }
       
-      // async getallUsers(): Promise<User[]>{
-      //   return await this.userRepo.find();
-      //  }
-
+     
       async searchUsers(term) {
         return this.userRepo.createQueryBuilder('user')
           .where('user.username LIKE :term OR user.name LIKE :term', { term })
