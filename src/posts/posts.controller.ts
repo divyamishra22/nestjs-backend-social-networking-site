@@ -102,13 +102,13 @@ export class PostsController {
   }
 
 
-  @Get('/id')
+  @Get('/:id')
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   async viewPost(@Param('id') id: string,
   @getUserbyId() userid: string,): Promise<any> {
     
-    const post = await this.postService.getPostByPostId(userid);
+    const post = await this.postService.getPostByPostId(id);
     let isAuthor = false;
     if (post.userId === userid) {
       isAuthor = true;
@@ -126,14 +126,15 @@ export class PostsController {
     return { post, isAuthor, isLiked };
   }
 
-  @Delete('/id')
+
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
-  async DeletePhoto( @Param('id') id: string,
+  @Delete('/:postid')
+  async DeletePhoto(@Param('postid') postid: string,
   @getUserbyId() userid: string,): Promise<any> {
     
     
-    return this.postService.deletePostById(id, userid);
+    return this.postService.deletePostById(postid, userid);
   }
 
 
@@ -144,12 +145,12 @@ export class PostsController {
     return await this.postService.getFeedPosts(userid);
   }
 
-  @Get('alluserposts')
-  @ApiBearerAuth()
-  @UseGuards(JwtGuard)
-  async allposts(){
-    return await this.postService.getallPosts();
-  }
+  // @Get('alluserposts')
+  // @ApiBearerAuth()
+  // @UseGuards(JwtGuard)
+  // async allposts(){
+  //   return await this.postService.getallPosts();
+  // }
 
 }
 

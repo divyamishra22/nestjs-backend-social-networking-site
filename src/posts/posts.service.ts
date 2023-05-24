@@ -78,7 +78,7 @@ async getPostByPostId(postid:string): Promise<Posts>{
 
 
   async deletePostById(id: string, userid:string): Promise<any> {
-    const post = await this.getPostById(id);
+    const post = await this.getPostByPostId(id);
     if (post.userId !== userid) {
       throw new UnauthorizedException('Unauthorized');
     }
@@ -111,9 +111,10 @@ async getPostByPostId(postid:string): Promise<Posts>{
       .getMany();
 
   }
- async getallPosts(): Promise<Posts[]>{
-  return await this.postRepository.find();
- }
+
+//  async getallPosts(): Promise<Posts[]>{
+//   return await this.postRepository.find();
+//  }
 
 }
 
