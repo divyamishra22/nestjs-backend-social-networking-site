@@ -48,7 +48,7 @@ import { FeedModule } from './feed/feed.module';
     FeedModule,
     // CloudinaryModule
   ],
-  controllers: [AppController, FeedController, ],
-  providers: [AppService, FeedService, ],
+  controllers: [AppController,  ],
+  providers: [AppService,  ],
 })
 export class AppModule {}
