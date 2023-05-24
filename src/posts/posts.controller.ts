@@ -150,6 +150,7 @@ export class PostsController {
   async allposts(){
     return await this.postService.getallPosts();
   }
+
 }
 
 
