@@ -19,5 +19,6 @@ import { AuthModule } from 'src/auth/auth.module';
       ],
       controllers: [LikeController],
       providers: [LikeService, ],
+      exports: [LikeService]
 })
 export class LikeModule {}
