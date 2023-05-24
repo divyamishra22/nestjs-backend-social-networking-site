@@ -30,9 +30,10 @@ export class FeedController {
     
           // return arrayUsersId;
          const feedsPhotos = await this.postService.getFeedPost(arrayUsersId);
+        
     
-         return feedsPhotos;
-        // return this.feedService.getFeedData(feedsPhotos, userid);
+          // return feedsPhotos;
+         return this.feedService.getFeedData(feedsPhotos, userid);
       }
       catch{
         return false;
