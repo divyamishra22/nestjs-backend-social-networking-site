@@ -7,8 +7,9 @@ import { UserService } from 'src/user/user.service';
 @Injectable()
 export class FeedService {
   constructor(
-    private likeservice: LikeService,
-    private userservice: UserService) {}
+    // private likeservice: LikeService,
+    // private userservice: UserService
+    ) {}
     async getFeedData(
         feedsPhotos,
         userId: string,
@@ -19,14 +20,18 @@ export class FeedService {
         return feedsPhotos.map((posts: Posts) => {
           let isAuthor = false;
           let isLiked =  false;
-          if (posts.userId == userId) {
+          if (posts.userId === userId) {
             isAuthor = true;
           }
           
-      const findlike = this.likeservice.findLikeByUserAndPostId(userId, posts.id)
-      if(findlike){
-      isLiked = true;
-      }
+          posts.likes.map((like: Likes) => {
+            if (like.userId === userId) {
+              isLiked = true;
+            }
+            else{
+              isLiked = false;
+            }
+          });
 
       // const loggedinuser = this.userservice.findOne(userId)
 
