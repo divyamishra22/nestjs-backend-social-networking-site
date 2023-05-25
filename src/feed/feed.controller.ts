@@ -23,21 +23,23 @@ export class FeedController {
       async feedData(
         @getUserbyId() userid: string,
       ): Promise<any> {
-        try
-        {const user = await this.userService.getUserFollows(userid);
+        // try
+        // {
+          const user = await this.userService.getUserFollows(userid);
        const arrayUsersId = user.map((_user) => _user.userToId);
         // arrayUsersId.push(userid); // because we also want to show our photos in feed
     
-          // return arrayUsersId;
-         const feedsPhotos = await this.postService.getFeedPost(arrayUsersId);
+        //   // return arrayUsersId;
+         const feedsPhotos = await this.postService.getFeedPosts(arrayUsersId);
         
     
-          // return feedsPhotos;
+        
          return this.feedService.getFeedData(feedsPhotos, userid);
-      }
-      catch{
-        return false;
-      }
+       
+      // }
+      // catch{
+      //   return false;
+      // }
       
       }
 }

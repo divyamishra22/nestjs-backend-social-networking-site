@@ -56,7 +56,7 @@ export class FollowService {
         const follow = await this.getuserfollowing(userid);
         if(follow)
        { return await this.followRepository.createQueryBuilder('following')
-        .leftJoinAndSelect('following.userToId', 'userfollowingid')
+        .leftJoinAndSelect('following.userTo', 'userfollowingid')
         .where('following.userFromId = :userid', {
           userid,
         })

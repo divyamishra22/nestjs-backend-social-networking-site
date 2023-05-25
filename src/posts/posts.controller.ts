@@ -5,9 +5,9 @@ import { getUserbyId } from 'src/auth/auth.decorator';
 import { User } from 'src/user/user.entity';
 import { ApiBearerAuth, ApiProperty, ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { ApiResponse, ApiConsumes, ApiBody } from "@nestjs/swagger";
+// import { FileInterceptor } from '@nestjs/platform-express';
+// import { diskStorage } from 'multer';
+// import { ApiResponse, ApiConsumes, ApiBody } from "@nestjs/swagger";
 
 
 class PostCreateRequestBody {
@@ -24,69 +24,6 @@ export class PostsController {
     private likeService: LikeService,
   ) {}
 
-
-  // @Post('/upload-image')
-  // @ApiBearerAuth()
-  // @UseInterceptors(FileInterceptor('file'))
-  // @UsePipes(ValidationPipe)
-  // @UseGuards(JwtGuard)
-  // // @UsePipes(ValidationPipe)
-  // @ApiConsumes('multipart/form-data')
-  // @ApiBody({
-  //   type: 'multipart/form-data',
-  //   required: true,
-  //   schema: {
-  //     type: 'object',
-  //     properties: {
-  //       file: {
-  //         type: 'string',
-  //         format: 'binary'
-  //       }
-  //     }
-  //   }
-  // })
-  // async uploadPhoto(
-  //   @UploadedFile() file: Express.Multer.File,
-  //    @getUserbyId() user: User,
-  //   @Body() body: any,
-  // ) {
-  //    const key = file.buffer.toString('base64');
-  //    const photoBody = body.body;
-  //   // console.log(file)
-  //    return await this.postService.uploadPost(key, user, photoBody);
-  // }
-
-
-  // @Post('/uploadimage')
-  // @ApiBearerAuth()
-  // @UseGuards(JwtGuard)
-  // @UseInterceptors(
-  //   FileInterceptor("file", {
-  //     storage: diskStorage({
-  //       filename: (_request, file, callback) =>
-  //         callback(null, `${new Date().getTime()}-${file.originalname}`),
-  //     }),
-  //   }),
-  // )
-  // @ApiBody({
-  //   required: true,
-  //   type: "multipart/form-data",
-  //   schema: {
-  //     type: "object",
-  //     properties: {
-  //       file: {
-  //         type: "string",
-  //         format: "binary",
-  //       },
-  //     },
-  //   },
-  // })
-  // @ApiConsumes("multipart/form-data")
-  // async post(@UploadedFile() file,
-  // @getUserbyId() user: User,): Promise<any> {
-  //   console.log(file);
-    
-  // }
 
 
 
@@ -142,15 +79,10 @@ export class PostsController {
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   async getallposts(@getUserbyId() userid:string){
-    return await this.postService.getFeedPosts(userid);
+    return await this.postService.getallpostsofuser(userid);
   }
 
-  // @Get('alluserposts')
-  // @ApiBearerAuth()
-  // @UseGuards(JwtGuard)
-  // async allposts(){
-  //   return await this.postService.getallPosts();
-  // }
+  
 
 }
 

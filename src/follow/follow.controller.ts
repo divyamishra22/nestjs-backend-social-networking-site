@@ -53,8 +53,8 @@ export class FollowController {
       async getuserfollow(@getUserbyId() userid: string){
         try
        { const follow = await this.followService.getUserFollows(userid);
-        const user = await this.userService.getUserByUserId(userid);
-          return {follow, user}}
+          return follow;
+        }
        catch{
         return false;
        }

@@ -24,9 +24,9 @@ export class UserService {
        }
       
       
-      public async getUserByUserId(userId: string): Promise<User> {
-        return await this.userRepo.findOne({ where: { id: userId } });
-      }
+      public async getUserByUserId(userId): Promise<User> {
+        return await this.userRepo.findOne({where: {id:userId}})
+        }
     
       public async findbyemail(email: string): Promise<User> {
         return await this.userRepo.findOne({ where: { email: email } });
@@ -78,6 +78,7 @@ export class UserService {
         }
         if (newUserDetails.email) existingUser.email = newUserDetails.email;
         if (newUserDetails.username) existingUser.username = newUserDetails.username;
+        if(newUserDetails.name) existingUser.name = newUserDetails.name;
     
         return await this.userRepo.save(existingUser);
       }

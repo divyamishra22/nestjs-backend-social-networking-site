@@ -6,18 +6,18 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 export class Follow extends MyBaseEntity {
 
 
-  // @Column()
-  // userId: string;
-
-
-  // @Column()
-  // userfollowId: string;
-
-  @ManyToOne(() => User, )
-  @JoinColumn({name: 'userToId'})
+  @Column()
   userToId: string;
 
-  @ManyToOne(() => User, )
-  @JoinColumn({name: 'userFromId'})
+
+  @Column()
   userFromId: string;
+
+  @ManyToOne(() => User, (user) => user.following, { onDelete: 'CASCADE' }  )
+  @JoinColumn({name: 'userToId'})
+  userTo: User[];
+
+  @ManyToOne(() => User, (user) => user.followers, { onDelete: 'CASCADE' }  )
+  @JoinColumn({name: 'userFromId'})
+  userFrom: User[];
 }

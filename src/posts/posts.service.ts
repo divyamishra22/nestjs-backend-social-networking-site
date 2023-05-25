@@ -3,26 +3,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PostRepository } from './posts.repository';
 import { User } from 'src/user/user.entity';
 import { Posts } from './posts.entity';
+import { UserService } from 'src/user/user.service';
 // import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(Posts) private postRepository: PostRepository,
-    // private cloudinary: CloudinaryService
+    //  private userservice: UserService
   ) {}
 
-  // async uploadPhoto(key, user){
-  //   const postimg = new Posts();
-  //   postimg.url = key;
-  //   postimg.userId = user;
-  //    return await this.postRepository.save(postimg);
-  // }
+  
 
   async uploadPost( user: string, postcreate) {
-    // const url = await this.cloudinary.uploadImage(file).catch(() =>{
-    //   throw new BadRequestException('Invalid file Type.');
-    // })
     const posts = new Posts();
     if(postcreate.text)
     {posts.post = postcreate.text;}
@@ -93,28 +86,12 @@ async getPostByPostId(postid:string): Promise<Posts>{
   async getFeedPosts(arrayuserid: string): Promise<any>{
     return await this.postRepository.createQueryBuilder('post')
     // .leftJoinAndSelect('post.post', 'posted')
-      // .leftJoinAndSelect('posts.userId', 'postedBy')
-      // .leftJoinAndSelect('post.likes', 'likes')
-      // .where('post.userId IN (...arrayUsersId)', { arrayuserid })
-      .where('post.userId = :arrayuserid', {arrayuserid})
+      .leftJoinAndSelect('post.user', 'postedBy')
+      .leftJoinAndSelect('post.likes', 'likes')
+      .where('post.userId IN (:...arrayuserid)', {arrayuserid})
       .getMany();
   }
 
-  async getFeedPost(arrayuserid): Promise<any>{
-    const arrayuserId = arrayuserid.map((_user) => _user.id);
-    return await this.postRepository.createQueryBuilder('posts')
-    // .leftJoinAndSelect('post.post', 'posted')
-      //  .leftJoinAndSelect('posts.userId', 'postedBy')
-      // .leftJoinAndSelect('post.likes', 'likes')
-      
-        .where('posts.userId IN (:...arrayuserId)', { arrayuserId })
-      .getMany();
-
-  }
-
-//  async getallPosts(): Promise<Posts[]>{
-//   return await this.postRepository.find();
-//  }
 
 }
 

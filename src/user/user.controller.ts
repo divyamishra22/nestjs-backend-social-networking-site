@@ -81,15 +81,10 @@ export class UserController {
   
     @ApiBearerAuth()
     @UseGuards(JwtGuard)
-    @Get('/:userid')
-    async getUserByUserid(@Param('userId') userid: string): Promise<User> {
-        const user = await this.userService.getUserByUserId(userid);
-
-        if (!user) {
-          throw new NotFoundException('User not found');
-        }
-    
-        return user;
+    @Get('/:id')
+    async getUserByUserid(@Param('id') id: string): Promise<User> {
+        return await this.userService.getUserByUserId(id);
+        
       
     }
   

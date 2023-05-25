@@ -26,11 +26,13 @@ export class User extends MyBaseEntity {
   @Column({ nullable: true })
   bio: string;
 
-   @OneToMany((type) => Posts, (post) => post.user, 
-   {
-    lazy: true,
-    cascade: true,
-  })
+   @OneToMany((type) => Posts, (posts) => posts.user, 
+  //  {
+  //   lazy: true,
+  //   cascade: true,
+  // }
+  { onDelete: 'CASCADE' }
+  )
    posts: Posts[];
 
    @OneToMany((type) => Likes, (like) => like.userId, 
@@ -40,18 +42,20 @@ export class User extends MyBaseEntity {
   })
    likes: Likes[];
 
-   @OneToMany((type) => Follow, (follow) => follow.userToId, 
-   {
-    lazy: true,
-    cascade: true,
-  })
+   @OneToMany((type) => Follow, (follow) => follow.userFrom, { onDelete: 'CASCADE' } 
+  //  {
+  //   lazy: true,
+  //   cascade: true,
+  // }
+  )
    followers  : Follow[];
 
-   @OneToMany((type) => Follow, (follow) => follow.userFromId, 
-   {
-    lazy: true,
-    cascade: true,
-  })
+   @OneToMany((type) => Follow, (follow) => follow.userTo, { onDelete: 'CASCADE' }
+  //  {
+  //   lazy: true,
+  //   cascade: true,
+  // }
+  )
    following  : Follow[];
 
 

@@ -13,7 +13,7 @@ export class Likes extends MyBaseEntity {
   @Column()
   postId: string;
 
-  @ManyToOne(() => Posts)
+  @ManyToOne(() => Posts, (post) => post.likes, { onDelete: 'CASCADE' })
   @JoinColumn({name: "postId"})
   posts: Posts;
 
