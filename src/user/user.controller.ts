@@ -79,14 +79,6 @@ export class UserController {
         return user;
     }
   
-    @ApiBearerAuth()
-    @UseGuards(JwtGuard)
-    @Get('/:id')
-    async getUserByUserid(@Param('id') id: string): Promise<User> {
-        return await this.userService.getUserByUserId(id);
-        
-      
-    }
   
     @Post('/signup')
     async createNewUser(
@@ -97,6 +89,13 @@ export class UserController {
             createUserRequest.password,
           );
           return user;
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(JwtGuard)
+    @Get('/:userid')
+    async getuserbyUserId(@Param('userid') userid: string,): Promise<User> {
+      return this.userService.findOne(userid);
     }
   
     @ApiBearerAuth()

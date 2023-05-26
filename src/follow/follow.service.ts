@@ -16,20 +16,21 @@ export class FollowService {
     
      
       async createFollow(userToId: string, userFromId: string): Promise<any>{
-        const isfollow = await this.getfollow(userToId, userFromId)
-        if(!isfollow.id)
-       { const follow = new Follow();
+      //   const isfollow = await this.getfollow(userToId, userFromId)
+      //   if(!isfollow.id)
+      //  {
+         const follow = new Follow();
         follow.userToId = userToId;
         follow.userFromId= userFromId;
         return await this.followRepository.save(follow);  
-        }
-        else{
-          throw new ConflictException('already following!');
-        }
+        // }
+        // else{
+        //   throw new ConflictException('already following!');
+        // }
       }
     
     
-      async getfollow(userToId:string, userFromId: string) {
+      async getfollow(userToId:string, userFromId: string): Promise<Follow> {
         return this.followRepository
         .createQueryBuilder('follow')
         .where(
@@ -43,14 +44,12 @@ export class FollowService {
       }
 
 
-      // async getfollowByUserid(userid): Promise<any>{
-      // return await this.followRepository.find({where: {userFromId:userid} })
-      // }
 
-      async deletefollow(id:string): Promise<any>{
+      async deletefollow(id:string) {
         return await this.followRepository.delete({id}) ;
         
       }
+
 
       async getUserFollows(userid:string): Promise<any> {
         const follow = await this.getuserfollowing(userid);
