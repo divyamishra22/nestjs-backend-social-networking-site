@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { BadRequestException, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { FollowService } from './follow.service';
 import { UserService } from 'src/user/user.service';
 import { getUserbyId } from 'src/auth/auth.decorator';
@@ -19,16 +19,16 @@ export class FollowController {
       @ApiBearerAuth()
       @UseGuards(JwtGuard)
       async handleFollow(@Param('userid') userid: string, @getUserbyId() userId: string) {
-        const user = await this.userService.getUserByUserId(userid);
+        const user = await this.userService.findOne(userid);
         if (user.id === userId) {
           throw new BadRequestException('You cant follow Yourself..');
         }
-        try{
+        // try{
       return await this.followService.createFollow(user.id, userId); // (user to follow, user logged in)
-        }
-        catch{
-          return true;
-        } 
+        // }
+        // catch{
+        //   return true;
+        // } 
       }
 
       @ApiBearerAuth()
@@ -59,4 +59,20 @@ export class FollowController {
         return false;
        }
       }
+
+      @ApiBearerAuth()
+      @Put('/:userId')
+      @UseGuards(JwtGuard)
+      async Follow(@Param('userId') userId: string, @getUserbyId() userid:string) {
+        const user = await this.userService.findOne(userId);
+        if (user.id === userid) {
+          throw new BadRequestException('You cant follow Yourself..');
+        }
+    
+        const follow = await this.followService.getfollow(userId, userid); // (user to follow, user logged in)
+        if (follow) {
+          return await this.followService.deletefollow(follow.id);
+        } 
+      }
+
 }
