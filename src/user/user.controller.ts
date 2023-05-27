@@ -1,4 +1,4 @@
-import { Controller,Get, Post, Patch, Param, Body, ForbiddenException, NotFoundException, UseGuards } from '@nestjs/common';
+import { Controller,Get, Post, Patch, Param, Body, ForbiddenException, NotFoundException, UseGuards, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiBearerAuth, ApiProperty, ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
 import { User } from './user.entity';
@@ -7,6 +7,7 @@ import { PostsService } from 'src/posts/posts.service';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { IsEmail, IsString, MinLength } from 'class-validator';
 import { FollowService } from 'src/follow/follow.service';
+import { GetUser } from './decorator';
 
 class UserCreateRequestBody {
     @ApiProperty() @IsString() email: string;
@@ -93,10 +94,11 @@ export class UserController {
 
     @ApiBearerAuth()
     @UseGuards(JwtGuard)
-    @Get('/:userid')
+    @Put('/:userid')
     async getuserbyUserId(@Param('userid') userid: string,): Promise<User> {
       return this.userService.findOne(userid);
     }
+
   
     @ApiBearerAuth()
     @UseGuards(JwtGuard)
@@ -134,6 +136,13 @@ export class UserController {
   @UseGuards(JwtGuard)
   searchUsers(@Param('term') term: string) {
     return this.userService.searchUsers(term);
+  }
+
+  @ApiBearerAuth()
+  @Get('/auth/me')
+  @UseGuards(JwtGuard)
+  getUserFromToken(@GetUser() user: User): User {
+    return user;
   }
     
 }
