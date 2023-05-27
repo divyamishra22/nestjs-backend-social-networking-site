@@ -29,7 +29,7 @@ export class AuthService {
         if(user && user.password == password)
       {
         
-        return  this.signUser(user.id, user.email, 'user');
+        return  this.signUser(user.id, user.email, 'user')
       }
       else{
         return 'password not match';

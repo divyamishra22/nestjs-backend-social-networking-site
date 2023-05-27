@@ -74,6 +74,8 @@ export class UserService {
         if (newUserDetails.email) existingUser.email = newUserDetails.email;
         if (newUserDetails.username) existingUser.username = newUserDetails.username;
         if(newUserDetails.name) existingUser.name = newUserDetails.name;
+        if(newUserDetails.username) existingUser.username = newUserDetails.username;
+        if(newUserDetails.bio) existingUser.bio = newUserDetails.bio;
     
         return await this.userRepo.save(existingUser);
       }
