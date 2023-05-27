@@ -112,23 +112,14 @@ export class UserController {
     }
   
 
-    @ApiBearerAuth()
-    @UseGuards(JwtGuard)
-  @Get('/allposts')
-  async getallpostofuser(@getUserbyId() userid:string)
-  {
-      return this.postService.getallpostsofuser(userid);
-  }
-    
+  //   @ApiBearerAuth()
+  //   @UseGuards(JwtGuard)
+  // @Get('/allposts')
+  // async getallpostofuser(@getUserbyId() userid:string)
+  // {
+  //     return this.postService.getallpostsofuser(userid);
+  // }
 
-
-//   @ApiBearerAuth()
-//   @UseGuards(JwtGuard)
-// @Get('/:Id/allposts')
-// async getallpostofuserbyuserid( @Param('Id') Id:string)
-// {
-//     return this.postService.getallpostsofuser(Id);
-// }
  
 
   @Get('/search/:term')
