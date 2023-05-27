@@ -21,6 +21,8 @@ class UserCreateRequestBody {
     @ApiPropertyOptional() @IsString() @MinLength(3) password?: string;
     @ApiPropertyOptional() @IsString() name?: string;
      @ApiPropertyOptional()  @IsEmail() email?: string;
+     @ApiPropertyOptional()  @IsString() @MinLength(3) username?: string;
+     @ApiPropertyOptional()  @IsString() bio?: string;
   }
 
 
@@ -102,12 +104,12 @@ export class UserController {
   
     @ApiBearerAuth()
     @UseGuards(JwtGuard)
-    @Patch('/:userid')
+    @Post('/update')
     async updateUserDetails(
-    @Param('userid') userid: string,
+    @getUserbyId() userId:string,
     @Body() updateUserRequest: UserUpdateRequestBody,
     ): Promise<User> {
-          const user = await this.userService.updateUser(userid, updateUserRequest);
+          const user = await this.userService.updateUser(userId, updateUserRequest);
           return user;
     }
   
@@ -132,8 +134,8 @@ export class UserController {
   @ApiBearerAuth()
   @Get('/auth/me')
   @UseGuards(JwtGuard)
-  getUserFromToken(@GetUser() user: User): User {
-    return user;
+  getUserFromToken(@getUserbyId() userid:string) {
+      return this.userService.findOne(userid);
   }
     
 }
