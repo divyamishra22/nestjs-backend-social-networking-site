@@ -1,3 +1,4 @@
+import { Comment } from "src/comments/comments.entity";
 import { MyBaseEntity } from "src/commons/base.entity";
 import { Likes } from "src/like/like.entity";
 import { User } from "src/user/user.entity";
@@ -28,5 +29,8 @@ export class Posts extends MyBaseEntity {
   //   cascade: true,
   // })
    likes: Likes[];
+  
+   @OneToMany((type) => Comment, (comments) => comments.posts, { onDelete: 'CASCADE' })
+   comments: Comment[];
   
 }

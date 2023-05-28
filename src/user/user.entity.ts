@@ -1,3 +1,4 @@
+import { Comment } from "src/comments/comments.entity";
 import { MyBaseEntity } from "src/commons/base.entity";
 import { Follow } from "src/follow/follow.entity";
 import { Likes } from "src/like/like.entity";
@@ -58,6 +59,9 @@ export class User extends MyBaseEntity {
   )
    following  : Follow[];
 
+
+   @OneToMany((type) => Comment, (comment) => comment.user,  { onDelete: 'CASCADE' })
+   comments: Comment[];
 
 }
 
