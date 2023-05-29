@@ -1,4 +1,4 @@
 import { Repository } from "typeorm";
-import { Comment } from "./comments.entity";
+import {  Comments } from "./comments.entity";
 
-export class CommentRepository extends Repository<Comment> {}
+export class CommentRepository extends Repository<Comments> {}

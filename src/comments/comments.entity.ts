@@ -5,7 +5,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 
 @Entity()
-export class Comment extends MyBaseEntity {
+export class Comments extends MyBaseEntity {
  
   @Column()
   body: string;
