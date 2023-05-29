@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, UseGuards } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { PostsService } from 'src/posts/posts.service';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
@@ -43,6 +43,16 @@ export class CommentsController {
   }
 
 
+  @Delete('/:commentId')
+  @UseGuards(JwtGuard)
+  @ApiBearerAuth()
+  async deleteComment(
+    @getUserbyId() userid: string,
+    @Param('commentId') commentId: string,) {
+    const comment = await this.commentService.getCommentById(commentId);
+
+    return this.commentService.deleteComment(comment, userid);
+  }
 
 
 }
