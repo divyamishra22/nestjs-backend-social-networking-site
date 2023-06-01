@@ -70,5 +70,10 @@ export class LikeService {
 
 
   }
+
+  async  deleteLikeBylikeId(id): Promise<any>{
+    return await this.likeRepository.delete(id);
+
+  }
 }
 
