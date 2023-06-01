@@ -1,8 +1,7 @@
-import { BadRequestException, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { BadRequestException, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
 import { FollowService } from './follow.service';
 import { UserService } from 'src/user/user.service';
 import { getUserbyId } from 'src/auth/auth.decorator';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -60,19 +59,38 @@ export class FollowController {
        }
       }
 
+      // @ApiBearerAuth()
+      // @Put('/:userId')
+      // @UseGuards(JwtGuard)
+      // async Follow(@Param('userId') userId: string, @getUserbyId() userid:string) {
+      //   const user = await this.userService.findOne(userId);
+      //   if (user.id === userid) {
+      //     throw new BadRequestException('You cant follow Yourself..');
+      //   }
+    
+      //   const follow = await this.followService.getfollow(userId, userid); // (user to follow, user logged in)
+      //   if (follow) {
+      //     return await this.followService.deletefollow(follow.id);
+      //   } 
+      // }
+
+
+      @Put('/:id')
       @ApiBearerAuth()
-      @Put('/:userId')
       @UseGuards(JwtGuard)
-      async Follow(@Param('userId') userId: string, @getUserbyId() userid:string) {
-        const user = await this.userService.findOne(userId);
+      async handleFollows(@Param('id') id: string, @getUserbyId() userid: string) {
+        const user = await this.userService.findOne(id);
         if (user.id === userid) {
           throw new BadRequestException('You cant follow Yourself..');
         }
     
-        const follow = await this.followService.getfollow(userId, userid); // (user to follow, user logged in)
-        if (follow) {
+        const follow = await this.followService.getfollow(user.id, userid); // (user to follow, user logged in)
+        if (!follow) {
+          return await this.followService.createFollow(user.id, userid)
+          
+        } else {
           return await this.followService.deletefollow(follow.id);
-        } 
+         // (user to follow, user logged in)
+        }
       }
-
 }
