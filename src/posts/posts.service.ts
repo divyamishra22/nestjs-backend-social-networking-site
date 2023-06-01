@@ -88,6 +88,8 @@ async getPostByPostId(postid:string): Promise<Posts>{
     // .leftJoinAndSelect('post.post', 'posted')
       .leftJoinAndSelect('post.user', 'postedBy')
       .leftJoinAndSelect('post.likes', 'likes')
+      .leftJoinAndSelect('post.comments', 'userComment')
+      .leftJoinAndSelect('userComment.user', 'user')
       .where('post.userId IN (:...arrayuserid)', {arrayuserid})
       .getMany();
   }
