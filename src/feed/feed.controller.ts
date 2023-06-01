@@ -27,7 +27,7 @@ export class FeedController {
         // {
           const user = await this.userService.getUserFollows(userid);
        const arrayUsersId = user.map((_user) => _user.userToId);
-        // arrayUsersId.push(userid); // because we also want to show our photos in feed
+        arrayUsersId.push(userid); // because we also want to show our photos in feed
     
         //   // return arrayUsersId;
          const feedsPhotos = await this.postService.getFeedPosts(arrayUsersId);
