@@ -1,21 +1,21 @@
-import { Body, Controller, Delete, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { PostsService } from 'src/posts/posts.service';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiProperty, ApiTags  } from '@nestjs/swagger';
 import { getUserbyId } from 'src/auth/auth.decorator';
 import { IsNotEmpty, MinLength } from 'class-validator';
 import { Comments } from './comments.entity';
 
 
  class CreateCommentDto {
-    @IsNotEmpty()
+  @ApiProperty()  @IsNotEmpty()
     @MinLength(5)
     body: string;
   }
 
   
-
+  @ApiTags('comments')
 @Controller('comments')
 export class CommentsController {
     constructor(
