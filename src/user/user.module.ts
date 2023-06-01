@@ -11,12 +11,12 @@ import { AuthModule } from 'src/auth/auth.module';
 import { FollowModule } from 'src/follow/follow.module';
 
 
+
 @Module({
     imports: [
         TypeOrmModule.forFeature([User, Posts, Likes, Follow]), 
          forwardRef(() => PostsModule),
          forwardRef(() => FollowModule),
-        
         // PostsModule
         forwardRef(() => AuthModule)
       ],

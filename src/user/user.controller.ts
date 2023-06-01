@@ -7,7 +7,7 @@ import { PostsService } from 'src/posts/posts.service';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { IsEmail, IsString, MinLength } from 'class-validator';
 import { FollowService } from 'src/follow/follow.service';
-import { GetUser } from './decorator';
+// import { GetUser } from './decorator';
 
 class UserCreateRequestBody {
     @ApiProperty() @IsString() email: string;

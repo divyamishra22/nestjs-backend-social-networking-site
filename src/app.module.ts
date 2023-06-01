@@ -24,6 +24,10 @@ import { FeedService } from './feed/feed.service';
 import { FeedController } from './feed/feed.controller';
 import { FeedModule } from './feed/feed.module';
 // import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { CommentsController } from './comments/comments.controller';
+import { CommentsService } from './comments/comments.service';
+import { CommentsModule } from './comments/comments.module';
+import { Comments } from './comments/comments.entity';
 
 @Module({
   imports: [
@@ -34,8 +38,8 @@ import { FeedModule } from './feed/feed.module';
       port: 5432,
       username: 'postgres',
       password: 'divya123',
-      database: 'mydb1',
-      entities: [User, Posts, Likes, Follow],
+      database: 'moodb',
+      entities: [User, Posts, Likes, Follow, Comments],
       synchronize: true,
       logger:'advanced-console',
       logging: 'all',  
@@ -46,9 +50,10 @@ import { FeedModule } from './feed/feed.module';
     AuthModule,
     FollowModule,
     FeedModule,
+    CommentsModule,
     // CloudinaryModule
   ],
   controllers: [AppController,  ],
-  providers: [AppService,  ],
+  providers: [AppService, ],
 })
 export class AppModule {}
