@@ -63,5 +63,9 @@ export class User extends MyBaseEntity {
    @OneToMany((type) => Comments, (comment) => comment.user,  { onDelete: 'CASCADE' })
    comments: Comment[];
 
+
+   @Column({ nullable: true })
+   avatar: string;
+
 }
 
