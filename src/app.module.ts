@@ -38,7 +38,7 @@ import { Comments } from './comments/comments.entity';
       port: 5432,
       username: 'postgres',
       password: 'divya123',
-      database: 'moodb',
+      database: 'mydb1',
       entities: [User, Posts, Likes, Follow, Comments],
       synchronize: true,
       logger:'advanced-console',
