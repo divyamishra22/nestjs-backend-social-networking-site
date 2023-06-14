@@ -98,6 +98,30 @@ export class UserService {
           .where('user.username LIKE :term OR user.name LIKE :term', { term })
           .getMany();
       }
+
+      async updateAvatar(avatar, userid){
+       
+        const user = await this.userRepo.findOne({
+          where: { id: userid },
+        });
+        // to upload images of logged in user
+
+        user.avatar = avatar;
+        return await this.userRepo.save(user);
+       
+      }
+
+      async deleteAvatar(userid){
+       
+        const user = await this.userRepo.findOne({
+          where: { id: userid },
+        });
+        // to upload images of logged in user
+
+        user.avatar = null;
+        return await this.userRepo.save(user);
+       
+      }
 }
 
 

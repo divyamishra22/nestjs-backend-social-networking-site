@@ -1,4 +1,4 @@
-import { Controller,Get, Post, Patch, Param, Body, ForbiddenException, NotFoundException, UseGuards, Put } from '@nestjs/common';
+import { Controller,Get, Post, Patch, Param, Body, ForbiddenException, NotFoundException, UseGuards, Put, Delete } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiBearerAuth, ApiProperty, ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
 import { User } from './user.entity';
@@ -14,7 +14,7 @@ class UserCreateRequestBody {
     @ApiProperty() @IsEmail() @MinLength(3) password: string;
     @ApiProperty() @IsString() name: string;
     @ApiProperty() @IsString()  username: string;
-     @ApiPropertyOptional() bio?: string;
+    
   }
   
   class UserUpdateRequestBody {
@@ -25,6 +25,10 @@ class UserCreateRequestBody {
      @ApiPropertyOptional()  @IsString() bio?: string;
   }
 
+
+  class updateAvatar{
+    @ApiProperty() avavtar: string;
+  }
 
 
 @ApiTags('user')
@@ -114,14 +118,27 @@ export class UserController {
     }
   
 
-  //   @ApiBearerAuth()
-  //   @UseGuards(JwtGuard)
-  // @Get('/allposts')
-  // async getallpostofuser(@getUserbyId() userid:string)
-  // {
-  //     return this.postService.getallpostsofuser(userid);
-  // }
-
+    @Post('/avatar')
+   @ApiBearerAuth()
+    @UseGuards(JwtGuard)
+    async updateAvatar(
+      @Body() updateavatar: updateAvatar,
+      @getUserbyId() userid: string,
+    ): Promise<any> {
+      
+      return this.userService.updateAvatar(updateavatar.avavtar, userid);
+    }
+  
+    @Delete('/avatar')
+   @ApiBearerAuth()
+    @UseGuards(JwtGuard)
+    async deleteAvatar(
+      @getUserbyId() userid: string,
+    ): Promise<any> {
+      
+      return this.userService.deleteAvatar(userid);
+    }
+ 
  
 
   @Get('/search/:term')
