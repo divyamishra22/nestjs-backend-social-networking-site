@@ -15,7 +15,7 @@ import { FeedModule } from './feed/feed.module';
 // import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CommentsModule } from './comments/comments.module';
 import { Comments } from './comments/comments.entity';
-import * as dotenv from 'dotenv'
+
 
 
 require('dotenv').config();
