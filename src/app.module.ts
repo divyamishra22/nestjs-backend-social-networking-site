@@ -24,17 +24,17 @@ require('dotenv').config();
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-    //   type: 'postgres',
-    //   //host: 'localhost',
-    //   //
-    //   port: 5432,
-    //   username: 'postgres',
-    //   password: 'divya123',
-    //   database: 'mydb1',
-    //   entities: [User, Posts, Likes, Follow, Comments],
-    //   synchronize: true,
-    //   logger:'advanced-console',
-    //   logging: 'all',  
+      // type: 'postgres',
+      // //host: 'localhost',
+      // //
+      // port: 5432,
+      // username: 'postgres',
+      // password: 'divya123',
+      // database: 'mydb1',
+      // entities: [User, Posts, Likes, Follow, Comments],
+      // synchronize: true,
+      // logger:'advanced-console',
+      // logging: 'all',  
 
     type: 'postgres' ,
     host: process.env.HOST,
