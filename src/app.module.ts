@@ -18,7 +18,20 @@ import { Comments } from './comments/comments.entity';
 
 
 
-require('dotenv').config();
+
+require('dotenv').config()
+
+const db_options={
+
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT || '5432'),
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD ,
+  database: process.env.DB_NAME ,
+
+}
+
+console.log(db_options)
 
 
 @Module({
@@ -37,17 +50,13 @@ require('dotenv').config();
       // logging: 'all',  
 
     type: 'postgres' ,
-    host: process.env.HOST,
-  port: parseInt(process.env.PORT),
-  username: process.env.USERNAME,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
-     entities: [User, Posts, Likes, Follow, Comments],
+    ...db_options,
+      entities: [User, Posts, Likes, Follow, Comments],
       synchronize: true,
-        logger:'advanced-console',
-      logging: 'all',  
+     
   
     }),
+   
     UserModule,
     PostsModule,
     LikeModule,
