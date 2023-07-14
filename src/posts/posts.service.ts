@@ -97,5 +97,17 @@ async getPostByPostId(postid:string): Promise<Posts>{
   }
 
 
+  async getFeedPost(userid: string): Promise<any>{
+    return await this.postRepository.createQueryBuilder('post')
+    // .leftJoinAndSelect('post.post', 'posted')
+      .leftJoinAndSelect('post.user', 'postedBy')
+      .leftJoinAndSelect('post.likes', 'likes')
+      .leftJoinAndSelect('post.comments', 'userComment')
+      .leftJoinAndSelect('userComment.user', 'user')
+      .where('post.userId= :userid', {userid})
+      .getOne();
+  }
+
+
 }
 

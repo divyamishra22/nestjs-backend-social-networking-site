@@ -49,4 +49,37 @@ export class FeedService {
           //  return { isAuthor, posts};
         });
       }
+
+
+      async getfeed(
+        posts,
+        userId: string,
+      ): Promise<{ isAuthor: boolean; 
+        isLiked: boolean;
+        // countlikes:any; 
+        posts: Posts }> {
+       
+          let isAuthor = false;
+          let isLiked =  false;
+          if (posts.userId === userId) {
+            isAuthor = true;
+          }
+          
+          posts.likes.map((like: Likes) => {
+            if (like.userId === userId) {
+              isLiked = true;
+            }
+            else{
+              isLiked = false;
+            }
+          });
+
+          return { isAuthor, isLiked,posts  };
+         
+       
+      }
+
+
+      
+
 }
