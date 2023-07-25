@@ -5,7 +5,15 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
   // const app = await NestFactory.create(AppModule);
-  const app = await NestFactory.create<NestExpressApplication>(AppModule)
+  const app = await NestFactory.create<NestExpressApplication>(AppModule,{
+    cors: {
+      origin: [
+        'https://64c012aa50d2b508e602a0d8--singular-cendol-baee26.netlify.app',
+        // '',
+        
+      ],
+    },
+  })
   app.enableCors();
 
   const config = new DocumentBuilder()
